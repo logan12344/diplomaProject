@@ -1,7 +1,11 @@
-express = require('express');
-WebServer = express();
+const express = require('express');
+const WebServer = express();
 
-auth = require('./backend/auth');
+const pg_config = require('./backend/pg_config.json');
+const Pool = require('pg').Pool;
+const pg_db = new Pool(pg_config);
+
+const auth = require('./backend/auth');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -29,7 +33,7 @@ function handle(req,res){
     if (method){
         switch (group){
             case 'auth':
-                res.json(auth.exec(method,req.query));
+                auth.exec(method,req.query,pg_db,res);
                 break;
             default:
                 res.json({error: true, result: 'Method group not found' });
