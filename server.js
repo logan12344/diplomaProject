@@ -19,6 +19,11 @@ WebServer.get('/', (req, res) => {
 
 WebServer.get('/api/:method',handle);
 
+WebServer.post('/api/:method',(req, res, next) => {
+    req.query = req.body;
+    next();
+},handle);
+
 WebServer.listen(80, (err) => {
     if (err)
     {
