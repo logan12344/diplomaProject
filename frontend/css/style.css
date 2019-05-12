@@ -1,6 +1,11 @@
 body {
 	background-color: #f7fdff;
 }
+
+::-webkit-input-placeholder {
+  color: #2860ba;
+}
+
 #login {
 	width: 30%;
 	padding: 12px 20px;
@@ -10,10 +15,10 @@ body {
 	border-radius: 4px;
 	box-sizing: border-box;
 	position: absolute;
-    top: 25%;
+    top: 40%;
 	left: 50%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%)
+	transform: translate(-50%, -50%);
 }
 
 #password {
@@ -25,10 +30,10 @@ body {
 	border-radius: 4px;
 	box-sizing: border-box;
 	position: absolute;
-	top: 31%;
+	top: 53%;
 	left: 50%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%)
+	transform: translate(-50%, -50%);
 }
 
 input[type=submit] {
@@ -41,13 +46,13 @@ input[type=submit] {
 	border-radius: 4px;
 	cursor: pointer;
 	position: absolute;
-	top: 37%;
+	top: 68%;
 	left: 50%;
 	margin-right: -50%;
-	transform: translate(-50%, -50%)
+	transform: translate(-50%, -50%);
 }
 
-#Auth {
+#Auth{
 	color: #79a2e5;
 	position: absolute;
     top: 10%;
@@ -56,4 +61,59 @@ input[type=submit] {
 	transform: translate(-50%, -50%);
 	font-family: 'Times New Roman', Times, serif;
     font-size: 450%;
+}
+
+#wrap{
+	opacity: 0.8;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 16px;
+	background-color: rgba(1, 1, 1, 0.725);
+	z-index: 100;
+	overflow: auto;
+}
+	
+#window{
+	width: 55%;
+	height: 40%;
+	margin: 110px auto;
+	background: #fff;
+	z-index: 200;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 16px;
+	text-align: center;
+}
+
+#signIn{
+	width: 6%;
+	background-color: #2860ba;
+	color: white;
+	padding: 14px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	position: absolute;
+	top: 2%;
+	right: 8%;
+}
+
+#signUp{
+	width: 6%;
+	background-color: #FFFFFF;
+	color: #2860ba;
+	outline: 1px solid #2860ba;
+	padding: 14px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	position: absolute;
+	top: 2%;
+	right: 1%;
 }

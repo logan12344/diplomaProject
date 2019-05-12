@@ -4,16 +4,13 @@
 		<title>Главная страница</title>
 		<link rel="stylesheet" href="css/style.css">
 		<meta charset="utf-8" />
-		<script src="js/js.js"></script>
+		<script src="js/signin.js"></script>
+		<script src="js/signup.js"></script>
 	</head>
 	<body>
-		<div>
-			<h1 id="Auth">Authentication page</h1>
+		<div class="sign">
+			<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="singInArea()">
+			<input type="button" id="signUp" value="Sign up" name="Sign out" onclick="singOUpArea()">
 		</div>
-		<form name="loginForm" id="loginForm" method="post">
-			<input type="text" id="login" placeholder="Login" name="Login" required /><br />
-			<input type="text" id="password" placeholder="Password" name="Password" required /><br />
-			<input type="submit" value="Sign in"/>
-		</form>
 	</body>
 <html>
