@@ -8,7 +8,7 @@ exports.exec = (method, params, db, callback) => {
             SignIn(params,db,callback);
             break;
         case 'signup':
-            SignUp(params,callback); 
+            SignUp(params,db,callback); 
             break;   
         case 'logout':
             LogOut(params,db,callback);  
@@ -40,14 +40,34 @@ function SignIn(params,db,callback){
                 });
             }
         });
-    }
-    else
+    } else
     callback.json({error: true, result: 'Wrong login or password'});
 }
 
-function SignUp(params,callback){
-    if (params)
-    callback.json(params);
+function SignUp(params,db,callback){
+    if (params && params.login && params.passwd){
+        db.query('SELECT user_id FROM users WHERE user_login = $1',
+        [params.login], (error, results) =>{
+            if (error) {
+                console.log(error.error);
+                callback.json({error: true,  result: 'Error creating user'});
+            } else {
+                if (results.rowCount > 0) {
+                    callback.json({error: true,  result: 'User name alredy exsist'});
+                } else {
+                    db.query('INSERT INTO users(user_login, user_passwd) VALUES ($1,$2)',
+                    [params.login, params.passwd], (error, results) =>{
+                        if (error){
+                            console.log(error.error);
+                            callback.json({error: true,  result: 'Error creating user'});
+                        } else {
+                            SignIn(params,db,callback);
+                        }
+                    });
+                }
+            }
+        });
+    } else
     callback.json({error: true, result: 'Wrong login or password'});
 }
 
@@ -62,7 +82,6 @@ function LogOut(params,db,callback){
             } else
             callback.json({error: false, result: ''});
         });
-    }
-    else
+    } else
     callback.json({error: true, result: 'Token not found'});
 }
