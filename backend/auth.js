@@ -62,7 +62,7 @@ function SignIn(params,db,callback){
 }
 
 function SignUp(params,db,callback){
-    if (params && params.login && params.passwd){
+    if (!(params && params.login && params.passwd)){
         callback.json({error: true, result: 'Wrong login or password'});
         return;
     }
