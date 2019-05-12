@@ -86,7 +86,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-
 #Auth, #Reg{
 	color: #79a2e5;
 	position: absolute;
@@ -113,7 +112,7 @@ body {
 	overflow: auto;
 }
 	
-#window1, #window2{
+#window1, #window2, #window3{
 	display: none;
 	width: 55%;
 	height: 40%;
@@ -156,9 +155,30 @@ body {
 	right: 1%;
 }
 
+#signOut{
+	display: none;
+	width: 6%;
+	background-color: #2860ba;
+	color: white;
+	padding: 14px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	position: absolute;
+	top: 2%;
+	right: 1%;
+}
+
 #chech{
 	width: 10%;
 	position: absolute;
 	top: 50%;
 	transform: translate(-50%, -50%);
+}
+
+#Pib{
+	text-align: right;
+	position: absolute;
+	top: 1%;
+	right: 8%;
 }

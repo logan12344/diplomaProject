@@ -1,6 +1,6 @@
-function show1(state)
+function show(state, id)
 {
-	document.getElementById('window1').style.display = state;			
+	document.getElementById(id).style.display = state;			
 	document.getElementById('wrap').style.display = state; 			
 }
 
@@ -10,26 +10,47 @@ function processFormIn(e) {
 		console.log(state);
 		console.log(data);
 		if(state == 200) {
-			var stroka = JSON.parse(data);
-			if(stroka.error == false){
-				changeWindow1("Authentication successful", "./../image/checked.svg");
-			}
-			else
-				changeWindow1(stroka.result, "./../image/no-entry.svg");
+			allFine(data);
 		}
 	});
     return false;
 }
 
-function changeWindow1(info, source){
-	var div = document.getElementById("window1");
-	div.removeChild(document.getElementById("loginForm"));
-	var textWindow = document.getElementById("Auth");
+function allFine(data){
+	var stroka = JSON.parse(data);
+	if(stroka.error == false){
+		changeWindow("Authentication successful", "./../image/checked.svg");
+		window.localStorage.setItem("token", stroka.result.token);
+		window.localStorage.setItem("pib", stroka.result.pib);			
+		onReload();
+	}
+	else
+		changeWindow(stroka.result, "./../image/no-entry.svg");
+}
+
+function onReload(){
+	var buttonSignOut = document.getElementById("signOut");
+	buttonSignOut.style.display = 'block';
+	buttonSignOut = document.getElementById("signIn");
+	buttonSignOut.style.display = 'none';
+	buttonSignOut = document.getElementById("signUp");
+	buttonSignOut.style.display = 'none';
+	buttonSignOut = document.getElementsByClassName("sign")[0];
+	var h3 = document.getElementById("Name");
+	h3.innerHTML = window.localStorage.getItem("pib");
+}
+
+function changeWindow(info, source){
+	show("none", "window1");
+	show("none", "window2");
+	var textWindow = document.getElementById("after");
 	textWindow.innerHTML = info;
-	var imageSVG = document.createElement("img");
-	div.appendChild(imageSVG);
+	var imageSVG = document.getElementById("chech");
 	imageSVG.src = source;
-	imageSVG.id = "chech";
+	show("block", "window3");
+	setTimeout(function(){
+		show("none", "window3");
+	},1000);
 }
 
 function do_post(api_method, params, callback){
