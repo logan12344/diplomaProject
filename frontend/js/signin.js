@@ -1,62 +1,36 @@
-function singInArea(){
-	var forma = document.createElement("form");
-	forma.addEventListener("submit", processForm);
-	var open1 = document.createElement("a");
-	document.getElementsByClassName("sign")[0].appendChild(open1);
-	open1.href = "javascript:show('block');";
-	var div1 = document.createElement("div");
-	div1.id = "wrap";
-	div1.onclick = function(){show('none');};
-	document.body.appendChild(div1);
-	
-	var div2 = document.createElement("div");
-	div2.id = "window";
-	document.body.appendChild(div2);
-	div2.appendChild(forma);
-	
-	var h1 = document.createElement("h1");
-	div2.appendChild(h1);
-	h1.id = "Auth";
-	h1.innerHTML = "Authentication";
-	
-	var input1 = document.createElement("input");
-	forma.appendChild(input1);
-	input1.type = "text";
-	input1.id = "login";
-	input1.placeholder = "Enter login";
-	input1.required = true;
-	
-	var input2 = document.createElement("input");
-	forma.appendChild(input2);
-	input2.type = "text";
-	input2.id = "password";
-	input2.placeholder = "Enter password";
-	input2.required = true;
-	
-	var submit1 = document.createElement("input");
-	forma.appendChild(submit1);
-	submit1.type = "submit";
-	submit1.value = "Sign in";
-}
-
-function show(state)
+function show1(state)
 {
-	document.getElementById('window').style.display = state;			
+	document.getElementById('window1').style.display = state;			
 	document.getElementById('wrap').style.display = state; 			
 }
 
-function processForm(e) {
+function processFormIn(e) {
     if (e.preventDefault) e.preventDefault();
-	do_post("auth.signin", ["login", this.childNodes[0].value, "passwd", this.childNodes[1].value], (state, data) => {
-		console.log(data);
+	do_post("auth.signin", ["login", this.childNodes[1].value, "passwd", this.childNodes[3].value], (state, data) => {
 		console.log(state);
+		console.log(data);
+		if(state == 200) {
+			var stroka = JSON.parse(data);
+			if(stroka.error == false){
+				changeWindow1("Authentication successful", "./../image/checked.svg");
+			}
+			else
+				changeWindow1(stroka.result, "./../image/no-entry.svg");
+		}
 	});
     return false;
 }
 
-window.onload = function () {
-	window._http_request = new XMLHttpRequest();
-};
+function changeWindow1(info, source){
+	var div = document.getElementById("window1");
+	div.removeChild(document.getElementById("loginForm"));
+	var textWindow = document.getElementById("Auth");
+	textWindow.innerHTML = info;
+	var imageSVG = document.createElement("img");
+	div.appendChild(imageSVG);
+	imageSVG.src = source;
+	imageSVG.id = "chech";
+}
 
 function do_post(api_method, params, callback){
 	if (window._http_request && api_method && callback){
@@ -72,8 +46,10 @@ function do_post(api_method, params, callback){
 		}
 		window._http_request.open('post',document.location.origin+'/api/'+api_method, true);
 		window._http_request.onreadystatechange = function () {
-			if(window._http_request.readyState === XMLHttpRequest.DONE)
+			if(window._http_request.readyState === XMLHttpRequest.DONE){
 				callback(window._http_request.status, window._http_request.responseText);
+				window._http_request.abort();
+			}
 		};
 		window._http_request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 		window._http_request.send(body);
