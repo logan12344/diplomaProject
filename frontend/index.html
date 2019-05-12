@@ -6,11 +6,39 @@
 		<meta charset="utf-8" />
 		<script src="js/signin.js"></script>
 		<script src="js/signup.js"></script>
+		<script>
+			window.onload = function () {
+				window._http_request = new XMLHttpRequest();
+				var forma1 = document.getElementById("loginForm");
+				forma1.onsubmit = processFormIn;
+				var forma2 = document.getElementById("regForm");
+				forma2.onsubmit = processFormUp;
+			};
+		</script>
 	</head>
 	<body>
 		<div class="sign">
-			<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="singInArea()">
-			<input type="button" id="signUp" value="Sign up" name="Sign out" onclick="singOUpArea()">
+			<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="show1('block');">
+			<input type="button" id="signUp" value="Sign up" name="Sign out" onclick="show2('block');">
+		</div>
+		<div id="wrap" onclick="show1('none');show2('none');">
+		</div>
+		<div id="window1">
+			<h1 id="Auth">Authentication</h1>
+			<form name="loginForm" id="loginForm">
+				<input class="in" type="text" id="login1" placeholder="Login" name="Login1" required />
+				<input class="in" type="password" id="password1" placeholder="Password" name="Password2" required />
+				<input class="in" type="submit" id="submit1" value="Sign in"/>
+			</form>
+		</div>
+		<div id="window2">
+			<h1 id="Reg">Registration</h1>
+			<form name="regForm" id="regForm">
+				<input class="up" type="text" id="login2" placeholder="Login" name="Login2" required />
+				<input class="up" type="text" id="teacheID" placeholder="Teacher ID" name="teacheID" required />
+				<input class="up" type="password" id="password2" placeholder="Password" name="Password2" required />
+				<input type="submit" id="submit2" value="Sign up"/>
+			</form>
 		</div>
 	</body>
 <html>
