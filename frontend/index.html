@@ -23,20 +23,38 @@
 	</head>
 	<body>
 		<div class="navbar">
-			<a href="">Home</a>
 			<div id="authOk">
-				<button id="Rozklad" onclick="rozklad();">Розклад</button>
+				<button class="NavchPlan" onclick="rozklad();">Розклад</button>
 			<div class="dropdown">
 				<button class="NavchPlan">Складання планів роботи 
-					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-content">
-					<a href="">Індивідуальний план</a>
-					<a href="">Розподіл навантаження</a>
+					<button class="dropdownButton">Індивідуальний план</button>
+					<button class="dropdownButton">Навчальний план</button>
+					<button class="dropdownButton">Робоча програма</button>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button class="NavchPlan">Робота зі студентом
+				</button>
+				<div class="dropdown-content">
+					<button class="dropdownButton">Формування навчальних матеріалів</button>
+					<button class="dropdownButton">Контроль виконання завдання</button>
+					<button class="dropdownButton">План робіт з дисципліни</button>
+					<button class="dropdownButton">Перевірка звітів</button>
+					<button class="dropdownButton">Журнал успішності</button>
+				</div>
+			</div>			
+			<button class="NavchPlan" >Звіти</button>
+			<button class="NavchPlan">План роботи</button>
+			<div class="dropdown">
+				<button class="NavchPlan">Ведення довідників 
+				</button>
+				<div class="dropdown-content">
+					<button class="dropdownButton" onclick="dovDisc();" >Довідник дисциплін</button>
+					<button class="dropdownButton" onclick="dovVikl();">Довідник викладачів</button>
 				</div>
 			</div> 
-			<a id="Zvit" >Звіти</a>
-			<a id="PlanRob" href="">План роботи</a>
 			</div>
 			<div class="sign">
 				<div id="Pib">
@@ -76,7 +94,7 @@
 				<input type="submit" id="submitFile" value="Upload"/>
 			</form>
 		</div>
-		<table class="minimalistBlack" style="width:100%">
+		<table id="Rozk" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
 					<th></th>
@@ -89,97 +107,24 @@
 					<th>Неділя</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="RozkBody">
+			</tbody>
+		</table>
+		<table id="Disc" class="minimalistBlack" style="width:100%">
+			<thead>
 				<tr>
-					<td>8:30 - 9:50</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<th>Назва дисципліни</th>
+					<th>Обов`язковість</th> 
+					<th>Години лекцій</th>
+					<th>Години практик</th>
+					<th>Години лабораторних</th> 
+					<th>Години самостійних</th> 
+					<th>Години індивідуальних</th>
+					<th>Курсовий проект</th>
+					<th>Екзамен</th>
 				</tr>
-				<tr>
-					<td>10:00 - 11:20</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>11:45 - 13:05</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>13:15 - 14:30</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>14:40 - 15:50</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>16:00 - 17:10</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>17:20 - 18:30</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>18:40 - 19:50</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>20:00 - 21:20</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+			</thead>
+			<tbody class="discBody">
 			</tbody>
 		</table>
 	</body>
