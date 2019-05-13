@@ -11,6 +11,8 @@ const auth = require('./backend/auth');
 const schedule = require('./backend/schedule');
 const teachers = require('./backend/teachers');
 const subjects = require('./backend/subjects');
+const educationalplan = require('./backend/educationalplan');
+const individualplan = require('./backend/individualplan');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -54,6 +56,12 @@ function handle(req,res){
                 break;
             case 'subjects':
                 subjects.exec(method,req.query,pg_db,res);
+                break;
+            case 'educationalplan':
+                educationalplan.exec(method,req.query,pg_db,res);
+                break;
+            case 'individualplan':
+                individualplan.exec(method,req.query,pg_db,res);
                 break;
             default:
                 res.status(404).end();
