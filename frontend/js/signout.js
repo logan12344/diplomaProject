@@ -4,6 +4,7 @@ function processFormOut() {
 		console.log(state);
 		console.log(data);
 		onReload('none', 'block', '');
+		shadow();
 	});
     return false;
 }

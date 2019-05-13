@@ -228,11 +228,11 @@ body {
 	text-align: left;
 }
 
-button:hover {
+button:hover, .dropdown-content:hover {
 	background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content{
 	display: block;
 }
 
@@ -246,6 +246,10 @@ button:hover {
 	background-color: inherit;
 	font-family: inherit;
 	margin: 0;
+}
+
+.dropdownButton:hover{
+	color:white;
 }
 
 #authOk{

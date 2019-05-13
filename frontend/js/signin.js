@@ -9,6 +9,8 @@ function shadow(){
 	document.getElementsByClassName('discBody')[0].innerHTML = '';
 	document.getElementById('Rozk').style.display = 'none';
 	document.getElementsByClassName('RozkBody')[0].innerHTML = '';
+	document.getElementById('Vikl').style.display = 'none';
+	document.getElementsByClassName('ViklBody')[0].innerHTML = '';
 }
 
 function rozklad(){
@@ -35,6 +37,9 @@ function dovVikl(){
 	do_post("teachers.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
+		if(state == 200) {
+			parseVikl(data);
+		}
 	});
 }
 
@@ -60,6 +65,46 @@ function allFine(data){
 	}
 	else
 		changeWindow(stroka.result, "./../image/no-entry.svg");
+}
+
+function parseVikl(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('ViklBody')[0].appendChild(t);
+		var a = document.createElement('img');
+		t.appendChild(a);
+		a.src = stroka.result[i].photo;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].pib;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].contact_info[0];
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].contact_info[1];
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].contact_info[2];
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].work_exp;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].position;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].academic_status;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].degree;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].descipline;
+	}
+	document.getElementById('Vikl').style.display = 'table';	
 }
 
 function parseDisc(data){
