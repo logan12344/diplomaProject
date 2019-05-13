@@ -1,17 +1,19 @@
 const express = require('express');
 const WebServer = express();
+const fileUpload = require('express-fileupload');
 
 const pg_config = require('./backend/pg_config.json');
 const Pool = require('pg').Pool;
 const pg_db = new Pool(pg_config);
 
 const auth = require('./backend/auth');
+//const file = require('./backend/file');
+const schedule = require('./backend/schedule');
+const teachers = require('./backend/teachers');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
-
-// Parse JSON bodies (as sent by API clients)
-WebServer.use(express.json());
+WebServer.use(fileUpload({createParentPath:true}));
 
 WebServer.get('/', (req, res) => {
     res.render('index.html');
@@ -40,8 +42,19 @@ function handle(req,res){
             case 'auth':
                 auth.exec(method,req.query,pg_db,res);
                 break;
+            //case 'file':
+                //file.exec(method,req.query,req.files,pg_db,res)
+                //break;
+            case 'schedule':
+                schedule.exec(method,req.query,pg_db,res);
+                break;
+            case 'teachers':
+                teachers.exec(method,req.query,pg_db,res);
+                break;
+
             default:
-                res.json({error: true, result: 'Method group not found' });
+                res.status(404).end();
+                break;
         }
     }
     else
