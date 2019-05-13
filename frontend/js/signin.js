@@ -6,7 +6,7 @@ function show(state, id)
 
 function processFormIn(e) {
     if (e.preventDefault) e.preventDefault();
-	do_post("auth.signin", ["login", this.childNodes[1].value, "passwd", this.childNodes[3].value], (state, data) => {
+	do_post("auth.signin", ["login", this.elements.login.value, "passwd", this.elements.password.value], (state, data) => {
 		console.log(state);
 		console.log(data);
 		if(state == 200) {
@@ -22,34 +22,27 @@ function allFine(data){
 		changeWindow("Authentication successful", "./../image/checked.svg");
 		window.localStorage.setItem("token", stroka.result.token);
 		window.localStorage.setItem("pib", stroka.result.pib);			
-		onReload();
+		onReload('block', 'none', window.localStorage.getItem("pib"));
 	}
 	else
 		changeWindow(stroka.result, "./../image/no-entry.svg");
 }
 
-function onReload(){
-	var buttonSignOut = document.getElementById("signOut");
-	buttonSignOut.style.display = 'block';
-	buttonSignOut = document.getElementById("signIn");
-	buttonSignOut.style.display = 'none';
-	buttonSignOut = document.getElementById("signUp");
-	buttonSignOut.style.display = 'none';
-	buttonSignOut = document.getElementsByClassName("sign")[0];
-	var h3 = document.getElementById("Name");
-	h3.innerHTML = window.localStorage.getItem("pib");
+function onReload(state1, state2, textH3){
+	document.getElementById("signOut").style.display = state1;
+	document.getElementById("signIn").style.display = state2;
+	document.getElementById("signUp").style.display = state2;
+	document.getElementById("Name").innerHTML = textH3;
 }
 
 function changeWindow(info, source){
-	show("none", "window1");
-	show("none", "window2");
-	var textWindow = document.getElementById("after");
-	textWindow.innerHTML = info;
-	var imageSVG = document.getElementById("chech");
-	imageSVG.src = source;
-	show("block", "window3");
+	show("none", "windowIn");
+	show("none", "windowUp");
+	document.getElementById("after").innerHTML = info;
+	document.getElementById("chech").src = source
+	show("block", "windowOut");
 	setTimeout(function(){
-		show("none", "window3");
+		show("none", "windowOut");
 	},1000);
 }
 

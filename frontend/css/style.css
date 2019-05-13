@@ -38,19 +38,19 @@ body {
 	top: 40%;
 }
 
-#login1{
+#login{
 	top: 40%;
 }
 
-#login2{
+#loginReg{
     top: 53%;
 }
 
-#password1 {
+#password {
 	top: 53%;
 }
 
-#password2 {
+#passwordReg {
 	top: 66%;
 }
 
@@ -112,7 +112,7 @@ body {
 	overflow: auto;
 }
 	
-#window1, #window2, #window3{
+#windowIn, #windowUp, #windowOut{
 	display: none;
 	width: 55%;
 	height: 40%;

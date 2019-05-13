@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Главная страница</title>
+		<title>Віртуальний офіс</title>
 		<link rel="stylesheet" href="css/style.css">
 		<meta charset="utf-8" />
 		<script src="js/signin.js"></script>
@@ -15,7 +15,7 @@
 				var forma2 = document.getElementById("regForm");
 				forma2.onsubmit = processFormUp;
 				if(window.localStorage.getItem("token")!=null && window.localStorage.getItem("pib")!=null){
-					onReload();
+					onReload('block', 'none', window.localStorage.getItem("pib"));
 				}
 			};
 		</script>
@@ -25,30 +25,30 @@
 			<div id="Pib">
 				<h3 id="Name"></h3>
 			</div>
-			<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'window1');">
-			<input type="button" id="signUp" value="Sign up" name="Sign up" onclick="show('block', 'window2');">
+			<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'windowIn');">
+			<input type="button" id="signUp" value="Sign up" name="Sign up" onclick="show('block', 'windowUp');">
 			<input type="button" id="signOut" value="Sign out" name="Sign out" onclick="processFormOut();">
 		</div>
-		<div id="wrap" onclick="show('none', 'window1');show('none', 'window2');">
+		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');">
 		</div>
-		<div id="window1">
+		<div id="windowIn">
 			<h1 id="Auth">Authentication</h1>
 			<form name="loginForm" id="loginForm">
-				<input class="in" type="text" id="login1" placeholder="Login" name="Login1" required />
-				<input class="in" type="password" id="password1" placeholder="Password" name="Password2" required />
+				<input class="in" type="text" id="login" placeholder="Login" name="Login" required />
+				<input class="in" type="password" id="password" placeholder="Password" name="Password" required />
 				<input class="in" type="submit" id="submit1" value="Sign in"/>
 			</form>
 		</div>
-		<div id="window2">
+		<div id="windowUp">
 			<h1 id="Reg">Registration</h1>
 			<form name="regForm" id="regForm">
-				<input class="up" type="text" id="login2" placeholder="Login" name="Login2" required />
+				<input class="up" type="text" id="loginReg" placeholder="Login" name="LoginReg" required />
 				<input class="up" type="text" id="teacheID" placeholder="Teacher ID" name="teacheID" required />
-				<input class="up" type="password" id="password2" placeholder="Password" name="Password2" required />
+				<input class="up" type="password" id="passwordReg" placeholder="Password" name="PasswordReg" required />
 				<input type="submit" id="submit2" value="Sign up"/>
 			</form>
 		</div>
-		<div id="window3">
+		<div id="windowOut">
 			<h1 id="after"></h1>
 			<img id="chech">
 		</div>

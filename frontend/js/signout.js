@@ -3,15 +3,7 @@ function processFormOut() {
 		window.localStorage.clear();
 		console.log(state);
 		console.log(data);
-		var buttonSignOut = document.getElementById("signOut");
-		buttonSignOut.style.display = 'none';
-		buttonSignOut = document.getElementById("signIn");
-		buttonSignOut.style.display = 'block';
-		buttonSignOut = document.getElementById("signUp");
-		buttonSignOut.style.display = 'block';
-		buttonSignOut = document.getElementsByClassName("sign")[0];
-		var h3 = document.getElementById("Name");
-		h3.innerHTML = '';
+		onReload('none', 'block', '');
 	});
     return false;
 }
