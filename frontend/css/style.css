@@ -54,7 +54,7 @@ body {
 	top: 66%;
 }
 
-#submit1{
+#submitIn{
 	width: 20%;
 	background-color: #2860ba;
 	color: white;
@@ -70,7 +70,7 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-#submit2{
+#submitUp{
 	width: 20%;
 	background-color: #2860ba;
 	color: white;
