@@ -10,6 +10,7 @@ const auth = require('./backend/auth');
 //const file = require('./backend/file');
 const schedule = require('./backend/schedule');
 const teachers = require('./backend/teachers');
+const subjects = require('./backend/subjects');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -51,7 +52,9 @@ function handle(req,res){
             case 'teachers':
                 teachers.exec(method,req.query,pg_db,res);
                 break;
-
+            case 'subjects':
+                subjects.exec(method,req.query,pg_db,res);
+                break;
             default:
                 res.status(404).end();
                 break;
