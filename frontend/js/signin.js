@@ -4,6 +4,10 @@ function show(state, id)
 	document.getElementById('wrap').style.display = state; 			
 }
 
+function rozklad(){
+	document.getElementsByClassName('minimalistBlack')[0].style.display = 'table';	
+}
+
 function processFormIn(e) {
     if (e.preventDefault) e.preventDefault();
 	do_post("auth.signin", ["login", this.elements.login.value, "passwd", this.elements.password.value], (state, data) => {
@@ -29,6 +33,7 @@ function allFine(data){
 }
 
 function onReload(state1, state2, textH3){
+	document.getElementById("authOk").style.display = state1;
 	document.getElementById("signOut").style.display = state1;
 	document.getElementById("signIn").style.display = state2;
 	document.getElementById("signUp").style.display = state2;
