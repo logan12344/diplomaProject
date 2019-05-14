@@ -44,7 +44,6 @@
 				</div>
 			</div>			
 			<button class="NavchPlan" >Звіти</button>
-			<button class="NavchPlan">План роботи</button>
 			<div class="dropdown">
 				<button class="NavchPlan">Ведення довідників 
 				</button>
@@ -171,7 +170,12 @@
 		<div class="formNavchMat">
 			<div id="fileUpload">
 			<form name="upFile" id="upFile">
-				<input type="file" id="uploadFiles" name="uploadFiles"  />
+				<input type="file" id="upload" name="upload"/>
+				<input type="checkbox" name="public">Public</input>
+				<input type="checkbox" name="private">Private</input>
+				<div>
+					<textarea>Test</textarea>
+				</div>
 				<input type="submit" id="submitFile" value="Upload"/>
 			</form>
 		</div>
