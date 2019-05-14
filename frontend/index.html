@@ -3,10 +3,8 @@
 		<title>Віртуальний офіс</title>
 		<link rel="stylesheet" href="css/style.css">
 		<meta charset="utf-8" />
-		<script src="js/signin.js"></script>
-		<script src="js/signup.js"></script>
-		<script src="js/signout.js"></script>
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="js/sign.js"></script>
+		<script src="js/tables.js"></script>
 		<script>
 			window.onload = function () {
 				window._http_request = new XMLHttpRequest();
@@ -29,8 +27,8 @@
 				<button class="NavchPlan">Складання планів роботи 
 				</button>
 				<div class="dropdown-content">
-					<button class="dropdownButton">Індивідуальний план</button>
-					<button class="dropdownButton">Навчальний план</button>
+					<button class="dropdownButton" onclick="indivPlan();">Індивідуальний план</button>
+					<button class="dropdownButton" onclick="edPlan();">Навчальний план</button>
 					<button class="dropdownButton">Робоча програма</button>
 				</div>
 			</div>
@@ -143,6 +141,37 @@
 				</tr>
 			</thead>
 			<tbody class="ViklBody">
+			</tbody>
+		</table>
+		<table id="EdPlan" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Код спеціальності</th>
+					<th>Код дисципліни</th> 
+					<th>Рік затвердження плану</th>
+					<th>Семестр</th>
+					<th>Рівень</th> 
+					<th>Форма навчання</th> 
+					<th>Кількість груп</th>
+					<th>Кількість студентів</th>
+				</tr>
+			</thead>
+			<tbody class="EdPlanBody">
+			</tbody>
+		</table>
+		<table id="IvdivPlan" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Табельний номер викладача</th>
+					<th>Номер навчального плану</th> 
+					<th>Кількість годин лекцій</th>
+					<th>Кількість годин практик</th>
+					<th>Кількість годин лабораторних</th> 
+					<th>Кількість годин самостійних</th> 
+					<th>Кількість годин індивідуальних</th>
+				</tr>
+			</thead>
+			<tbody class="IndivPlanBody">
 			</tbody>
 		</table>
 	</body>

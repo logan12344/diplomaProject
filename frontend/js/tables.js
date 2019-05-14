@@ -4,6 +4,25 @@ function show(state, id)
 	document.getElementById('wrap').style.display = state; 			
 }
 
+function onReload(state1, state2, textH3){
+	document.getElementById("authOk").style.display = state1;
+	document.getElementById("signOut").style.display = state1;
+	document.getElementById("signIn").style.display = state2;
+	document.getElementById("signUp").style.display = state2;
+	document.getElementById("Name").innerHTML = textH3;
+}
+
+function changeWindow(info, source){
+	show("none", "windowIn");
+	show("none", "windowUp");
+	document.getElementById("after").innerHTML = info;
+	document.getElementById("chech").src = source
+	show("block", "windowOut");
+	setTimeout(function(){
+		show("none", "windowOut");
+	},1000);
+}
+
 function shadow(){
 	document.getElementById('Disc').style.display = 'none';
 	document.getElementsByClassName('discBody')[0].innerHTML = '';
@@ -11,48 +30,44 @@ function shadow(){
 	document.getElementsByClassName('RozkBody')[0].innerHTML = '';
 	document.getElementById('Vikl').style.display = 'none';
 	document.getElementsByClassName('ViklBody')[0].innerHTML = '';
+	document.getElementById('EdPlan').style.display = 'none';
+	document.getElementsByClassName('EdPlanBody')[0].innerHTML = '';
+	document.getElementById('IvdivPlan').style.display = 'none';
+	document.getElementsByClassName('IndivPlanBody')[0].innerHTML = '';
 }
 
-function rozklad(){
-	do_post("schedule.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
-		console.log(state);
-		console.log(data);
-		if(state == 200) {
-			parseRozklad(data);
-		}
-	});
-}
-
-function dovDisc(){
-	do_post("subjects.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
-		console.log(state);
-		console.log(data);
-		if(state == 200) {
-			parseDisc(data);
-		}
-	});
-}
-
-function dovVikl(){
-	do_post("teachers.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
-		console.log(state);
-		console.log(data);
-		if(state == 200) {
-			parseVikl(data);
-		}
-	});
-}
-
-function processFormIn(e) {
-    if (e.preventDefault) e.preventDefault();
-	do_post("auth.signin", ["login", this.elements.login.value, "passwd", this.elements.password.value], (state, data) => {
-		console.log(state);
-		console.log(data);
-		if(state == 200) {
-			allFine(data);
-		}
-	});
-    return false;
+function parseEdPlan(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('EdPlanBody')[0].appendChild(t);
+		var a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].specialty_code;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].edu_plan_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].approv_year.split('T')[0];
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].term;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].flow;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].degree;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].groups;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].students;
+	}
+	document.getElementById('EdPlan').style.display = 'table';
 }
 
 function allFine(data){
@@ -183,45 +198,34 @@ function parseRozklad(data){
 	document.getElementById('Rozk').style.display = 'table';	
 }
 
-function onReload(state1, state2, textH3){
-	document.getElementById("authOk").style.display = state1;
-	document.getElementById("signOut").style.display = state1;
-	document.getElementById("signIn").style.display = state2;
-	document.getElementById("signUp").style.display = state2;
-	document.getElementById("Name").innerHTML = textH3;
-}
-
-function changeWindow(info, source){
-	show("none", "windowIn");
-	show("none", "windowUp");
-	document.getElementById("after").innerHTML = info;
-	document.getElementById("chech").src = source
-	show("block", "windowOut");
-	setTimeout(function(){
-		show("none", "windowOut");
-	},1000);
-}
-
-function do_post(api_method, params, callback){
-	if (window._http_request && api_method && callback){
-		if ((params.length % 2) != 0){
-			console.error('The number of parameters must be paired');
-			return;
-		}
-		var body = '';
-		for (var i=0; i< params.length-1; i+=2){
-			body += params[i]+'='+params[i+1];
-			if (i != params.length-2)
-				body += '&';
-		}
-		window._http_request.open('post',document.location.origin+'/api/'+api_method, true);
-		window._http_request.onreadystatechange = function () {
-			if(window._http_request.readyState === XMLHttpRequest.DONE){
-				callback(window._http_request.status, window._http_request.responseText);
-				window._http_request.abort();
-			}
-		};
-		window._http_request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		window._http_request.send(body);
+function parseIndivPlan(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('IndivPlanBody')[0].appendChild(t);
+		var a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].teacher_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].edu_plan_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].num_lec_hours;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].num_prac_hours;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].num_lab_hours;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].num_indep_hours;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].num_indiv_hours;
+		a = document.createElement('th');
 	}
+	document.getElementById('IvdivPlan').style.display = 'table';
 }
