@@ -41,11 +41,7 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT teachers_list.teacher_id, teachers_list.work_exp, teachers_list.academic_status, \
-            teachers_list.position, teachers_list.department_id, teachers_list.pib, \
-            teachers_list.degree, teachers_list.contact_info, teachers_list.biography, \
-            teachers_list.photo, array_agg(subjects.name) as discipline  FROM  teachers_list, subjects WHERE \
-            subjects.subject_id = ANY (teachers_list.discipline) GROUP BY teachers_list.teacher_id',
+            db.query('SELECT * FROM  work_program ',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
