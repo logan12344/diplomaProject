@@ -34,6 +34,7 @@ function shadow(){
 	document.getElementsByClassName('EdPlanBody')[0].innerHTML = '';
 	document.getElementById('IvdivPlan').style.display = 'none';
 	document.getElementsByClassName('IndivPlanBody')[0].innerHTML = '';
+	document.getElementsByClassName('formNavchMat')[0].style.display = 'none';
 }
 
 function parseEdPlan(data){
@@ -117,7 +118,11 @@ function parseVikl(data){
 		a.innerHTML = stroka.result[i].degree;
 		a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].descipline;
+		var s = '';
+		for(var o=0; o< stroka.result[i].discipline.length; o++){
+			s += stroka.result[i].discipline[o] + ', ';
+		}
+		a.innerHTML = s;
 	}
 	document.getElementById('Vikl').style.display = 'table';	
 }
@@ -228,4 +233,9 @@ function parseIndivPlan(data){
 		a = document.createElement('th');
 	}
 	document.getElementById('IvdivPlan').style.display = 'table';
+}
+
+function uploadFile(){
+	shadow();
+	document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
 }

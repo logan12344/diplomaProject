@@ -36,7 +36,7 @@
 				<button class="NavchPlan">Робота зі студентом
 				</button>
 				<div class="dropdown-content">
-					<button class="dropdownButton">Формування навчальних матеріалів</button>
+					<button class="dropdownButton" onclick="uploadFile();">Формування навчальних матеріалів</button>
 					<button class="dropdownButton">Контроль виконання завдання</button>
 					<button class="dropdownButton">План робіт з дисципліни</button>
 					<button class="dropdownButton">Перевірка звітів</button>
@@ -85,12 +85,6 @@
 		<div id="windowOut">
 			<h1 id="after"></h1>
 			<img id="chech">
-		</div>
-		<div id="fileUpload">
-			<form name="upFile" id="upFile">
-				<input type="file" id="uploadFiles" name="uploadFiles"  />
-				<input type="submit" id="submitFile" value="Upload"/>
-			</form>
 		</div>
 		<table id="Rozk" class="minimalistBlack" style="width:100%">
 			<thead>
@@ -174,5 +168,14 @@
 			<tbody class="IndivPlanBody">
 			</tbody>
 		</table>
+		<div class="formNavchMat">
+			<div id="fileUpload">
+			<form name="upFile" id="upFile">
+				<input type="file" id="uploadFiles" name="uploadFiles"  />
+				<input type="submit" id="submitFile" value="Upload"/>
+			</form>
+		</div>
+		<div>
+	
 	</body>
 <html>

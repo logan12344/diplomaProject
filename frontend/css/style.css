@@ -287,3 +287,7 @@ table.minimalistBlack thead th {
 	color: #FFFFFF;
 	text-align: center;
 }
+
+.formNavchMat{
+	display:none;
+}
