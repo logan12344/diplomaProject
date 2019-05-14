@@ -7,7 +7,7 @@ const Pool = require('pg').Pool;
 const pg_db = new Pool(pg_config);
 
 const auth = require('./backend/auth');
-//const file = require('./backend/file');
+const file = require('./backend/file');
 const schedule = require('./backend/schedule');
 const teachers = require('./backend/teachers');
 const subjects = require('./backend/subjects');
@@ -16,7 +16,7 @@ const individualplan = require('./backend/individualplan');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
-WebServer.use(fileUpload({createParentPath:true}));
+WebServer.use(fileUpload({ createParentPath: true }));
 
 WebServer.get('/', (req, res) => {
     res.render('index.html');
@@ -45,9 +45,9 @@ function handle(req,res){
             case 'auth':
                 auth.exec(method,req.query,pg_db,res);
                 break;
-            //case 'file':
-                //file.exec(method,req.query,req.files,pg_db,res)
-                //break;
+            case 'file':
+                file.exec(method,req.query,req.files,pg_db,res)
+                break;
             case 'schedule':
                 schedule.exec(method,req.query,pg_db,res);
                 break;
