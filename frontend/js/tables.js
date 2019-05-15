@@ -9,7 +9,7 @@ function onReload(state1, state2, textH3){
 	document.getElementById("signOut").style.display = state1;
 	document.getElementById("signIn").style.display = state2;
 	document.getElementById("signUp").style.display = state2;
-	document.getElementById("Name").innerHTML = textH3;
+	document.getElementById("Name").value = textH3;
 }
 
 function changeWindow(info, source){
@@ -35,6 +35,26 @@ function shadow(){
 	document.getElementById('IvdivPlan').style.display = 'none';
 	document.getElementsByClassName('IndivPlanBody')[0].innerHTML = '';
 	document.getElementsByClassName('formNavchMat')[0].style.display = 'none';
+	document.getElementById('UserSession').style.display = 'none';
+	document.getElementsByClassName('UserSessionBody')[0].innerHTML = '';
+	document.getElementById('WorkProg').style.display = 'none';
+	document.getElementsByClassName('WorkProgBody')[0].innerHTML = '';
+	document.getElementById('officeImg').style.display = 'none';
+}
+
+function userSession(){
+	shadow();
+	for(var i= 0; i< 5; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('UserSessionBody')[0].appendChild(t);
+		var a = document.createElement('th');
+		t.appendChild(a);
+		/*a.innerHTML = window.localStorage.getItem("token");*/
+		a = document.createElement('button');
+		t.appendChild(a);
+		a.value = 'Редагувати'
+	}
+	document.getElementById('UserSession').style.display = 'table';
 }
 
 function parseEdPlan(data){
@@ -78,6 +98,7 @@ function allFine(data){
 		window.localStorage.setItem("token", stroka.result.token);
 		window.localStorage.setItem("pib", stroka.result.pib);			
 		onReload('block', 'none', window.localStorage.getItem("pib"));
+		document.getElementById('logoImg').style.display = 'none';
 	}
 	else
 		changeWindow(stroka.result, "./../image/no-entry.svg");
@@ -238,4 +259,44 @@ function parseIndivPlan(data){
 function uploadFile(){
 	shadow();
 	document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
+}
+
+function parseWorkPlan(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('WorkProgBody')[0].appendChild(t);
+		var a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].work_prog_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].edu_plan_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].spesialty_code;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].teacher_id;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = '';
+	}
+	document.getElementById('WorkProg').style.display = 'table';
 }

@@ -7,6 +7,9 @@
 		<script src="js/tables.js"></script>
 		<script>
 			window.onload = function () {
+				if(window.localStorage.length != 0){
+					document.getElementById('logoImg').style.display = 'none';
+				}
 				window._http_request = new XMLHttpRequest();
 				var forma1 = document.getElementById("loginForm");
 				forma1.onsubmit = processFormIn;
@@ -55,14 +58,18 @@
 					</div>
 				</div> 
 				<input type="button" class="LogOut" id="signOut" value="Sign out" name="Sign out" onclick="processFormOut();">
+				<input type="button" id="Name" onclick="userSession();"></input>
 			</div>
 			<div class="sign">
-				<div id="Pib">
-					<h4 id="Name"></h4>
-				</div>
-				<input type="button" class="LogIn" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'windowIn');">
 				<input type="button" class="LogUp" id="signUp" value="Sign up" name="Sign up" onclick="show('block', 'windowUp');">
+				<input type="button" class="LogIn" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'windowIn');">
 			</div>
+		</div>
+		<div>
+			<img id="logoImg" src="image/logo.png">
+		</div>
+		<div>
+			<img id="officeImg" src="image/office.png">
 		</div>
 		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');">
 		</div>
@@ -171,16 +178,43 @@
 		</table>
 		<div class="formNavchMat">
 			<div id="fileUpload">
-			<form name="upFile" id="upFile">
-				<input type="file" id="upload" name="uploadFiles" multiple />
-				<input type="checkbox" name="public">Загальний доступ</input>
-				<div>
-					<textarea id="descriptionUp" maxlength="500" name="desc"></textarea>
-				</div>
-				<input type="submit" id="submitFile" value="Завантажити"/>
-			</form>
+				<form name="upFile" id="upFile">
+					<input type="file" id="upload" name="uploadFiles" multiple />
+					<input type="checkbox" id="check" name="public">Загальний доступ</input>
+					<div>
+						<textarea id="descriptionUp" maxlength="500" name="desc"></textarea>
+					</div>
+					<input type="submit" id="submitFile" value="Завантажити"/>
+				</form>
+			</div>
 		</div>
-		<div>
-	
+		<table id="WorkProg" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Код робочої програми</th>
+					<th>Код навчальної програми</th> 
+					<th>Код спеціальності</th>
+					<th>Табельний номер викладача</th>
+					<th>Номер заняття</th> 
+					<th>Тема заняття</th> 
+					<th>Вид заняття</th>
+					<th>Навчальні матеріали</th>
+					<th>Вид контролю</th>
+					<th>Всього балів</th>
+				</tr>
+			</thead>
+			<tbody class="WorkProgBody">
+			</tbody>
+		</table>
+		<table id="UserSession" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Active session</th>
+					<th></th> 
+				</tr>
+			</thead>
+			<tbody class="UserSessionBody">
+			</tbody>
+		</table>
 	</body>
 <html>

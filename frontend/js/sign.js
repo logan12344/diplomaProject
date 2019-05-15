@@ -5,6 +5,8 @@ function processFormOut() {
 		console.log(data);
 		onReload('none', 'block', '');
 		shadow();
+		document.getElementById('logoImg').style.display = 'block';
+		document.getElementById('officeImg').style.display = 'block';
 	});
     return false;
 }
@@ -17,7 +19,8 @@ function uploadFiles(e){
 		window._http_request.open('post',document.location.origin+'/api/file.upload', true);
 		window._http_request.onreadystatechange = function () {
 			if(window._http_request.readyState === XMLHttpRequest.DONE){
-				console.log('123');
+				document.getElementById('descriptionUp').value = '';
+				document.getElementById('upload').value = '';
 			}
 		};
 		window._http_request.send(body);
@@ -40,7 +43,9 @@ function workPlan(){
 	do_post("workprogram.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
-			
+		if(state == 200) {
+			parseWorkPlan(data);
+		}
 	});
 }
 

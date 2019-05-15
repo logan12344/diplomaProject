@@ -134,15 +134,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-#Pib{
-	color: white;
-	text-align: right;
-	position: absolute;
-	font-size: 16px;
-	top: 0.5%;
-	right: 8%;
-}
-
 .navbar {
 	background-color: #333;
 }
@@ -209,20 +200,6 @@ button:hover, .dropdown-content:hover {
 	color:white;
 }
 
-.LogIn{
-	cursor: pointer;
-	font-size: 16px;  
-	border: none;
-	outline: none;
-	color: white;
-	padding: 14px 16px;
-	background-color: #2860ba;
-	font-family: inherit;
-	float: right;
-	border: none;
-	border-radius: 4px;
-}
-
 .LogUp{
 	cursor: pointer;
 	font-size: 16px;  
@@ -234,6 +211,20 @@ button:hover, .dropdown-content:hover {
 	font-family: inherit;
 	float: right;
 	margin-right:2px;
+	border: none;
+	border-radius: 4px;
+}
+
+.LogIn{
+	cursor: pointer;
+	font-size: 16px;  
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: #2860ba;
+	font-family: inherit;
+	float: right;
 	border: none;
 	border-radius: 4px;
 }
@@ -253,14 +244,23 @@ button:hover, .dropdown-content:hover {
 	border-radius: 4px;
 }
 
-.LogIn:hover{
-  background-color: red; /* Green */
+.LogUp:hover, .LogOut:hover, .LogIn:hover, #submitUp:hover, #submitIn:hover{
+  background-color: #4CAF50; 
   color: white;
 }
 
-.LogUp:hover, .LogOut:hover, .LogIn:hover, #submitUp:hover, #submitIn:hover{
-  background-color: #4CAF50; /* Green */
-  color: white;
+#Name{
+	cursor: pointer;
+	font-size: 16px;  
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: #333; 
+	font-family: inherit;
+	float: right;
+	border: none;
+	border-radius: 4px;
 }
 
 #authOk{
@@ -301,4 +301,11 @@ table.minimalistBlack thead th {
 
 .formNavchMat{
 	display:none;
+}
+
+#officeImg{
+	display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
 }
