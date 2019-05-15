@@ -41,7 +41,11 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT * FROM  individual_plan ',
+            db.query('SELECT teachers_list.pib, individual_plan.edu_plan_id, \
+            individual_plan.num_lec_hours, individual_plan.num_prac_hours, \
+            individual_plan.num_lab_hours, individual_plan.num_indep_hours, \
+            individual_plan.num_indiv_hours FROM individual_plan, teachers_list WHERE \
+            teachers_list.teacher_id = individual_plan.teacher_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);

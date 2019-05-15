@@ -41,7 +41,12 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT * FROM  educational_plan ',
+            db.query('SELECT educational_plan.specialty_code, subjects.name, \
+            educational_plan.approv_year, educational_plan.term, \
+            educational_plan.degree, educational_plan.edu_form, \
+            educational_plan.flow, educational_plan.groups, \
+            educational_plan.students FROM educational_plan, subjects WHERE \
+            subjects.subject_id = educational_plan.subject_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
