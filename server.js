@@ -14,6 +14,7 @@ const subjects = require('./backend/subjects');
 const educationalplan = require('./backend/educationalplan');
 const individualplan = require('./backend/individualplan');
 const workprogram = require('./backend/workprogram');
+const account = require('./backend/account');
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -66,6 +67,9 @@ function handle(req,res){
                 break;
             case 'workprogram':
                 workprogram.exec(method,req.query,pg_db,res);
+                break;
+            case 'account':
+                account.exec(method,req.query,pg_db,res);
                 break;
             default:
                 res.status(404).end();
