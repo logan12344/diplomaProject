@@ -12,6 +12,8 @@
 				forma1.onsubmit = processFormIn;
 				var forma2 = document.getElementById("regForm");
 				forma2.onsubmit = processFormUp;
+				var formaUpload = document.getElementById("upFile");
+				formaUpload.onsubmit = uploadFiles;
 				if(window.localStorage.getItem("token")!=null && window.localStorage.getItem("pib")!=null){
 					onReload('block', 'none', window.localStorage.getItem("pib"));
 				}
@@ -23,43 +25,43 @@
 		<div class="navbar">
 			<div id="authOk">
 				<button class="NavchPlan" onclick="rozklad();">Розклад</button>
-			<div class="dropdown">
-				<button class="NavchPlan">Складання планів роботи 
-				</button>
-				<div class="dropdown-content">
-					<button class="dropdownButton" onclick="indivPlan();">Індивідуальний план</button>
-					<button class="dropdownButton" onclick="edPlan();">Навчальний план</button>
-					<button class="dropdownButton">Робоча програма</button>
+				<div class="dropdown">
+					<button class="NavchPlan">Складання планів роботи 
+					</button>
+					<div class="dropdown-content">
+						<button class="dropdownButton" onclick="indivPlan();">Індивідуальний план</button>
+						<button class="dropdownButton" onclick="edPlan();">Навчальний план</button>
+						<button class="dropdownButton" onclick="workPlan();">Робоча програма</button>
+					</div>
 				</div>
-			</div>
-			<div class="dropdown">
-				<button class="NavchPlan">Робота зі студентом
-				</button>
-				<div class="dropdown-content">
-					<button class="dropdownButton" onclick="uploadFile();">Формування навчальних матеріалів</button>
-					<button class="dropdownButton">Контроль виконання завдання</button>
-					<button class="dropdownButton">План робіт з дисципліни</button>
-					<button class="dropdownButton">Перевірка звітів</button>
-					<button class="dropdownButton">Журнал успішності</button>
-				</div>
-			</div>			
-			<button class="NavchPlan" >Звіти</button>
-			<div class="dropdown">
-				<button class="NavchPlan">Ведення довідників 
-				</button>
-				<div class="dropdown-content">
-					<button class="dropdownButton" onclick="dovDisc();" >Довідник дисциплін</button>
-					<button class="dropdownButton" onclick="dovVikl();">Довідник викладачів</button>
-				</div>
-			</div> 
+				<div class="dropdown">
+					<button class="NavchPlan">Робота зі студентом
+					</button>
+					<div class="dropdown-content">
+						<button class="dropdownButton" onclick="uploadFile();">Формування навчальних матеріалів</button>
+						<button class="dropdownButton">Контроль виконання завдання</button>
+						<button class="dropdownButton">План робіт з дисципліни</button>
+						<button class="dropdownButton">Перевірка звітів</button>
+						<button class="dropdownButton">Журнал успішності</button>
+					</div>
+				</div>			
+				<button class="NavchPlan" >Звіти</button>
+				<div class="dropdown">
+					<button class="NavchPlan">Ведення довідників 
+					</button>
+					<div class="dropdown-content">
+						<button class="dropdownButton" onclick="dovDisc();" >Довідник дисциплін</button>
+						<button class="dropdownButton" onclick="dovVikl();">Довідник викладачів</button>
+					</div>
+				</div> 
+				<input type="button" class="LogOut" id="signOut" value="Sign out" name="Sign out" onclick="processFormOut();">
 			</div>
 			<div class="sign">
 				<div id="Pib">
 					<h4 id="Name"></h4>
 				</div>
-				<input type="button" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'windowIn');">
-				<input type="button" id="signUp" value="Sign up" name="Sign up" onclick="show('block', 'windowUp');">
-				<input type="button" id="signOut" value="Sign out" name="Sign out" onclick="processFormOut();">
+				<input type="button" class="LogIn" id="signIn" value="Sign in" name="Sign in" onclick="show('block', 'windowIn');">
+				<input type="button" class="LogUp" id="signUp" value="Sign up" name="Sign up" onclick="show('block', 'windowUp');">
 			</div>
 		</div>
 		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');">
@@ -170,13 +172,12 @@
 		<div class="formNavchMat">
 			<div id="fileUpload">
 			<form name="upFile" id="upFile">
-				<input type="file" id="upload" name="upload"/>
-				<input type="checkbox" name="public">Public</input>
-				<input type="checkbox" name="private">Private</input>
+				<input type="file" id="upload" name="uploadFiles" multiple />
+				<input type="checkbox" name="public">Загальний доступ</input>
 				<div>
-					<textarea>Test</textarea>
+					<textarea id="descriptionUp" maxlength="500" name="desc"></textarea>
 				</div>
-				<input type="submit" id="submitFile" value="Upload"/>
+				<input type="submit" id="submitFile" value="Завантажити"/>
 			</form>
 		</div>
 		<div>

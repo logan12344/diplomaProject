@@ -9,21 +9,48 @@ function processFormOut() {
     return false;
 }
 
+function uploadFiles(e){
+	if (e.preventDefault) e.preventDefault();
+	if (window._http_request){
+		body = new FormData(this);
+		body.append('token', window.localStorage.getItem("token"));
+		window._http_request.open('post',document.location.origin+'/api/file.upload', true);
+		window._http_request.onreadystatechange = function () {
+			if(window._http_request.readyState === XMLHttpRequest.DONE){
+				console.log('123');
+			}
+		};
+		window._http_request.send(body);
+	}
+}
+
 function processFormUp(e) {
     if (e.preventDefault) e.preventDefault();
 	do_post("auth.signup", ["login", this.elements.loginReg.value, "teach_id", this.elements.teacheID.value, "passwd", this.elements.passwordReg.value], (state, data) => {
 		console.log(state);
 		console.log(data);
-		allFine(data);
+		if(state == 200) {
+			allFine(data);
+		}
 	});
     return false;
+}
+
+function workPlan(){
+	do_post("workprogram.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+			
+	});
 }
 
 function edPlan(){
 	do_post("educationalplan.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
+		if(state == 200) {
 			parseEdPlan(data);
+		}
 	});
 }
 
@@ -31,7 +58,9 @@ function indivPlan(){
 	do_post("individualplan.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
+		if(state == 200) {
 			parseIndivPlan(data);
+		}
 	});
 }
 
