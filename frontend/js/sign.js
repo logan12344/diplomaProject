@@ -100,6 +100,16 @@ function dovVikl(){
 	});
 }
 
+function userSession(){
+	do_post("account.getsessions", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		if(state == 200) {
+			parseUserSession(data);
+		}
+	});
+}
+
 function processFormIn(e) {
     if (e.preventDefault) e.preventDefault();
 	do_post("auth.signin", ["login", this.elements.login.value, "passwd", this.elements.password.value], (state, data) => {
@@ -110,6 +120,22 @@ function processFormIn(e) {
 		}
 	});
     return false;
+}
+
+function closeUserSession(){
+	var session = document.getElementById(this.className).innerHTML;
+	console.log(session);
+	do_post("account.closesession", ["token", window.localStorage.getItem("token"), "session_id", session], (state, data) => {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.result =='Token expired'){
+			processFormOut();
+		}
+		else{
+			parseUserSession(data);
+		}
+	});
 }
 
 function do_post(api_method, params, callback){

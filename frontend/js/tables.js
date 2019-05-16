@@ -24,9 +24,6 @@ function changeWindow(info, source){
 
 function allFine(data){
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	if(stroka.error == false){
 		changeWindow("Authentication successful", "./../image/checked.svg");
 		window.localStorage.setItem("token", stroka.result.token);
@@ -57,27 +54,37 @@ function shadow(){
 	document.getElementById('officeImg').style.display = 'none';
 }
 
-function userSession(){
+function parseUserSession(data){
 	shadow();
-	for(var i= 0; i< 5; i++){
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
+		if(stroka.result[i].current == true){
+			t.style.backgroundColor = "#09FA92";
+		}
 		document.getElementsByClassName('UserSessionBody')[0].appendChild(t);
 		var a = document.createElement('th');
 		t.appendChild(a);
-		/*a.innerHTML = window.localStorage.getItem("token");*/
-		a = document.createElement('button');
+		a.id = i;
+		a.innerHTML = stroka.result[i].session_id;
+		var a = document.createElement('th');
 		t.appendChild(a);
-		a.value = 'Редагувати'
+		a.innerHTML = stroka.result[i].current;
+		a = document.createElement('th');
+		t.appendChild(a);
+		var b = document.createElement('button');
+		a.appendChild(b);
+		b.className = i;
+		b.innerHTML = 'Закрити';
+		b.onclick = closeUserSession;
 	}
 	document.getElementById('UserSession').style.display = 'table';
+	document.getElementById('HeaderTitle').innerHTML = 'Активні сеанси';
 }
 
 function parseEdPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('EdPlanBody')[0].appendChild(t);
@@ -116,15 +123,15 @@ function parseEdPlan(data){
 function parseVikl(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('ViklBody')[0].appendChild(t);
 		var a = document.createElement('img');
 		t.appendChild(a);
-		a.src = stroka.result[i].photo;
+		if(stroka.result[i].photo)
+			a.src = stroka.result[i].photo;
+		else
+			a.src = 'image/logo.png';
 		a = document.createElement('th');
 		t.appendChild(a);
 		a.innerHTML = stroka.result[i].pib;
@@ -164,9 +171,6 @@ function parseVikl(data){
 function parseDisc(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('discBody')[0].appendChild(t);
@@ -230,9 +234,6 @@ function strouka(){
 function parseRozklad(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	strouka();
 	var days = ['7', '1', '2', '3', '4', '5', '6'];
 	for(var i= 0; i< stroka.result.length; i++){
@@ -248,15 +249,12 @@ function parseRozklad(data){
 function parseIndivPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('IndivPlanBody')[0].appendChild(t);
 		var a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].teacher_id;
+		a.innerHTML = stroka.result[i].pib;
 		a = document.createElement('th');
 		t.appendChild(a);
 		a.innerHTML = stroka.result[i].edu_plan_id;
@@ -290,9 +288,6 @@ function uploadFile(){
 function parseWorkProg(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	if(stroka.error == true){
-		return alert(stroka.result);
-	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('WorkProgBody')[0].appendChild(t);
