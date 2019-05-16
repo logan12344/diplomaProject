@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Віртуальний офіс</title>
+		<title id="HeaderTitle">Віртуальний офіс</title>
 		<link rel="stylesheet" href="css/style.css">
 		<meta charset="utf-8" />
 		<script src="js/sign.js"></script>
@@ -34,7 +34,7 @@
 					<div class="dropdown-content">
 						<button class="dropdownButton" onclick="indivPlan();">Індивідуальний план</button>
 						<button class="dropdownButton" onclick="edPlan();">Навчальний план</button>
-						<button class="dropdownButton" onclick="workPlan();">Робоча програма</button>
+						<button class="dropdownButton" onclick="workProg();">Робоча програма</button>
 					</div>
 				</div>
 				<div class="dropdown">
@@ -149,11 +149,12 @@
 			<thead>
 				<tr>
 					<th>Код спеціальності</th>
-					<th>Код дисципліни</th> 
+					<th>Назва дисципліни</th> 
 					<th>Рік затвердження плану</th>
 					<th>Семестр</th>
-					<th>Рівень</th> 
+					<th>Ступінь</th>
 					<th>Форма навчання</th> 
+					<th>Рівень</th>
 					<th>Кількість груп</th>
 					<th>Кількість студентів</th>
 				</tr>
@@ -191,16 +192,34 @@
 		<table id="WorkProg" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th>Код робочої програми</th>
-					<th>Код навчальної програми</th> 
-					<th>Код спеціальності</th>
-					<th>Табельний номер викладача</th>
-					<th>Номер заняття</th> 
-					<th>Тема заняття</th> 
-					<th>Вид заняття</th>
-					<th>Навчальні матеріали</th>
-					<th>Вид контролю</th>
-					<th>Всього балів</th>
+					<th style="width:7%;">Код робочої програми</th>
+					<th style="width:7%;">Код навчальної програми</th> 
+					<th style="width:7%;">Код спеціальності</th>
+					<th style="width:7%;">П.І.Б</th>
+					<th>Заняття
+						<table style="display: table; width: 100%;">
+							<thead>
+								<tr>
+									<th style="width:7%">Код заняття</th>
+									<th style="width:7%">Тема</th> 
+									<th style="width:7%">Зміст роботи</th>
+									<th>Методичні матеріали
+										<table style="display: table; width: 100%;">
+											<thead>
+												<tr>
+													<th style="width:12%; border: none;">Код викладача</th>
+													<th style="width:14%; border: none;">Код навчального матеріалу</th> 
+													<th style="width:40%; border: none;">Ім`я файлу</th>
+													<th style="width:25%; border: none;">Опис</th>
+													<th style="width:11%; border: none;">Загальний доступ</th>
+												</tr>
+											</thead>
+										</table>
+									</th>
+								</tr>
+							</thead>
+						</table>
+					</th>
 				</tr>
 			</thead>
 			<tbody class="WorkProgBody">

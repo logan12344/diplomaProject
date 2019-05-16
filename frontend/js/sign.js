@@ -7,6 +7,7 @@ function processFormOut() {
 		shadow();
 		document.getElementById('logoImg').style.display = 'block';
 		document.getElementById('officeImg').style.display = 'block';
+		document.getElementById('HeaderTitle').innerHTML = 'Віртуальний офіс';
 	});
     return false;
 }
@@ -39,12 +40,12 @@ function processFormUp(e) {
     return false;
 }
 
-function workPlan(){
+function workProg(){
 	do_post("workprogram.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
 		if(state == 200) {
-			parseWorkPlan(data);
+			parseWorkProg(data);
 		}
 	});
 }

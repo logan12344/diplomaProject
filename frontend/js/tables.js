@@ -1,5 +1,4 @@
-function show(state, id)
-{
+function show(state, id){
 	document.getElementById(id).style.display = state;			
 	document.getElementById('wrap').style.display = state; 			
 }
@@ -21,6 +20,22 @@ function changeWindow(info, source){
 	setTimeout(function(){
 		show("none", "windowOut");
 	},1000);
+}
+
+function allFine(data){
+	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
+	if(stroka.error == false){
+		changeWindow("Authentication successful", "./../image/checked.svg");
+		window.localStorage.setItem("token", stroka.result.token);
+		window.localStorage.setItem("pib", stroka.result.pib);			
+		onReload('block', 'none', window.localStorage.getItem("pib"));
+		document.getElementById('logoImg').style.display = 'none';
+	}
+	else
+		changeWindow(stroka.result, "./../image/no-entry.svg");
 }
 
 function shadow(){
@@ -60,6 +75,9 @@ function userSession(){
 function parseEdPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('EdPlanBody')[0].appendChild(t);
@@ -68,7 +86,7 @@ function parseEdPlan(data){
 		a.innerHTML = stroka.result[i].specialty_code;
 		a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].edu_plan_id;
+		a.innerHTML = stroka.result[i].name;
 		a = document.createElement('th');
 		t.appendChild(a);
 		a.innerHTML = stroka.result[i].approv_year.split('T')[0];
@@ -80,6 +98,9 @@ function parseEdPlan(data){
 		a.innerHTML = stroka.result[i].flow;
 		a = document.createElement('th');
 		t.appendChild(a);
+		a.innerHTML = stroka.result[i].edu_form;
+		a = document.createElement('th');
+		t.appendChild(a);
 		a.innerHTML = stroka.result[i].degree;
 		a = document.createElement('th');
 		t.appendChild(a);
@@ -89,24 +110,15 @@ function parseEdPlan(data){
 		a.innerHTML = stroka.result[i].students;
 	}
 	document.getElementById('EdPlan').style.display = 'table';
-}
-
-function allFine(data){
-	var stroka = JSON.parse(data);
-	if(stroka.error == false){
-		changeWindow("Authentication successful", "./../image/checked.svg");
-		window.localStorage.setItem("token", stroka.result.token);
-		window.localStorage.setItem("pib", stroka.result.pib);			
-		onReload('block', 'none', window.localStorage.getItem("pib"));
-		document.getElementById('logoImg').style.display = 'none';
-	}
-	else
-		changeWindow(stroka.result, "./../image/no-entry.svg");
+	document.getElementById('HeaderTitle').innerHTML = 'Навчальний план';
 }
 
 function parseVikl(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('ViklBody')[0].appendChild(t);
@@ -145,12 +157,16 @@ function parseVikl(data){
 		}
 		a.innerHTML = s;
 	}
-	document.getElementById('Vikl').style.display = 'table';	
+	document.getElementById('Vikl').style.display = 'table';
+	document.getElementById('HeaderTitle').innerHTML = 'Довідник викладачів';	
 }
 
 function parseDisc(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('discBody')[0].appendChild(t);
@@ -183,10 +199,11 @@ function parseDisc(data){
 		a.innerHTML = stroka.result[i].exam;
 	}
 	document.getElementById('Disc').style.display = 'table';	
+	document.getElementById('HeaderTitle').innerHTML = 'Довідник дисциплін';
 }
 
 function strouka(){
-	var timeR = ['8:30 - 9:50','10:00 - 11:20','11:45 - 13:05','13:15 - 14:30','14:40 - 15:50','16:00 - 17:10','17:20 - 18:30','18:40 - 19:50','20:00 - 21:20']
+	var timeR = ['8:30 - 9:50','10:00 - 11:20','11:45 - 13:05','13:15 - 14:30','14:40 - 15:50','16:00 - 17:10','17:20 - 18:30','18:40 - 19:50','20:00 - 21:20'];
 	for(var i = 0; i < 9; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('RozkBody')[0].appendChild(t);
@@ -213,6 +230,9 @@ function strouka(){
 function parseRozklad(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	strouka();
 	var days = ['7', '1', '2', '3', '4', '5', '6'];
 	for(var i= 0; i< stroka.result.length; i++){
@@ -221,12 +241,16 @@ function parseRozklad(data){
 		document.getElementById('Rozk').rows[stroka.result[i].lecture_id].children[dayName].innerHTML = stroka.result[i].group_name +
 		' ' + stroka.result[i].name + ' (' + stroka.result[i].lecture_name + ')';
 	}
-	document.getElementById('Rozk').style.display = 'table';	
+	document.getElementById('Rozk').style.display = 'table';
+	document.getElementById('HeaderTitle').innerHTML = 'Розклад';
 }
 
 function parseIndivPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('IndivPlanBody')[0].appendChild(t);
@@ -254,16 +278,21 @@ function parseIndivPlan(data){
 		a = document.createElement('th');
 	}
 	document.getElementById('IvdivPlan').style.display = 'table';
+	document.getElementById('HeaderTitle').innerHTML = 'Індивідуальний план';
 }
 
 function uploadFile(){
 	shadow();
 	document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
+	document.getElementById('HeaderTitle').innerHTML = 'Формування навчальних матеріалів';
 }
 
-function parseWorkPlan(data){
+function parseWorkProg(data){
 	shadow();
 	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+		return alert(stroka.result);
+	}
 	for(var i= 0; i< stroka.result.length; i++){
 		var t = document.createElement('tr');
 		document.getElementsByClassName('WorkProgBody')[0].appendChild(t);
@@ -275,28 +304,65 @@ function parseWorkPlan(data){
 		a.innerHTML = stroka.result[i].edu_plan_id;
 		a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].spesialty_code;
+		a.innerHTML = stroka.result[i].specialty_code;
 		a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].teacher_id;
+		a.innerHTML = stroka.result[i].pib;
 		a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = '';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = '';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = '';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = '';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = '';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = '';
+		var b = document.createElement('table');
+		a.appendChild(b);
+		b.style = 'display: table; width: 100%;';
+		var c = document.createElement('tbody');
+		b.appendChild(c);
+		for(var j=0; j<stroka.result[i].lectures.length; j++){
+			var t = document.createElement('tr');
+			c.appendChild(t);
+			var tableH = document.createElement('th');
+			t.appendChild(tableH);
+			tableH.style = 'width: 7%; border: none;';
+			tableH.innerHTML = stroka.result[i].lectures[j].lecture_id;
+			tableH = document.createElement('th');
+			t.appendChild(tableH);
+			tableH.style = 'width: 7%; border: none;';
+			tableH.innerHTML = stroka.result[i].lectures[j].topic;
+			tableH = document.createElement('th');
+			t.appendChild(tableH);
+			tableH.style = 'width: 7%; border: none;';
+			tableH.innerHTML = stroka.result[i].lectures[j].work_content;
+			tableH = document.createElement('th');
+			t.appendChild(tableH);
+			var tableB = document.createElement('table');
+			tableH.appendChild(tableB);
+			tableB.style = 'display: table; width: 100%;';
+			var tableC = document.createElement('tbody');
+			tableB.appendChild(tableC);
+			for(var k=0; k< stroka.result[i].lectures[j].method_mat.length; k++){
+				var tableT = document.createElement('tr');
+				tableC.appendChild(tableT);
+				var tableH2 = document.createElement('th');
+				tableT.appendChild(tableH2);
+				tableH2.style = 'width: 12%; border: none;';
+				tableH2.innerHTML = stroka.result[i].lectures[j].method_mat[k].teacher_id;
+				tableH2 = document.createElement('th');
+				tableT.appendChild(tableH2);
+				tableH2.style = 'width: 15%; border: none;';
+				tableH2.innerHTML = stroka.result[i].lectures[j].method_mat[k].method_mat_id;
+				tableH2 = document.createElement('th');
+				tableT.appendChild(tableH2);
+				tableH2.style = 'width: 40%; border: none;';
+				tableH2.innerHTML = stroka.result[i].lectures[j].method_mat[k].file_name;
+				tableH2 = document.createElement('th');
+				tableT.appendChild(tableH2);
+				tableH2.style = 'width: 25%; border: none;';
+				tableH2.innerHTML = stroka.result[i].lectures[j].method_mat[k].description;
+				tableH2 = document.createElement('th');
+				tableT.appendChild(tableH2);
+				tableH2.style = 'width: 11%; border: none;';
+				tableH2.innerHTML = stroka.result[i].lectures[j].method_mat[k].public;
+			}
+		}
 	}
 	document.getElementById('WorkProg').style.display = 'table';
+	document.getElementById('HeaderTitle').innerHTML = 'Робоча програма';
 }
