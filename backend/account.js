@@ -41,8 +41,8 @@ function GetSessions(params,db,callback){
                 return;
             }
 
-            db.query('SELECT session_id FROM active_sessions WHERE user_id = $1',
-            [decoded.uid], (error, results) =>{
+            db.query('SELECT session_id, (session_id = $2) as current FROM active_sessions WHERE user_id = $1',
+            [decoded.uid, decoded.sid], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
                 callback.json({error: true, result: 'Error get teachers list'}).end();
@@ -95,7 +95,7 @@ function CloseSession(params,db,callback){
                 return;
             }
             
-            callback.end();
+            GetSessions(params,db,callback);
         });
 
         });
