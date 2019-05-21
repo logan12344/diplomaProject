@@ -13,8 +13,10 @@ const teachers = require('./backend/teachers');
 const subjects = require('./backend/subjects');
 const educationalplan = require('./backend/educationalplan');
 const individualplan = require('./backend/individualplan');
-const workprogram = require('./backend/workprogram');
+const workplan = require('./backend/workplan');
+const lecturesplan = require('./backend/lecturesplan');
 const account = require('./backend/account');
+lecturesplan
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -65,8 +67,11 @@ function handle(req,res){
             case 'individualplan':
                 individualplan.exec(method,req.query,pg_db,res);
                 break;
-            case 'workprogram':
-                workprogram.exec(method,req.query,pg_db,res);
+            case 'workplan':
+                workplan.exec(method,req.query,pg_db,res);
+                break;
+            case 'lecturesplan':
+                lecturesplan.exec(method,req.query,pg_db,res);
                 break;
             case 'account':
                 account.exec(method,req.query,pg_db,res);

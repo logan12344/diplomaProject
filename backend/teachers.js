@@ -6,6 +6,9 @@ exports.exec = (method, params, db, callback) => {
         case 'get':
             get(params,db,callback);
             break;
+        case 'create':
+            create(params,db,callback);
+            break;
         default:
             callback.status(404).end();
             break;
@@ -47,20 +50,29 @@ function get(params,db,callback){
             teachers_list.photo, array_agg(subjects.name) as discipline  FROM  teachers_list, subjects WHERE \
             subjects.subject_id = ANY (teachers_list.discipline) GROUP BY teachers_list.teacher_id',
             [], (error, results) =>{
-            if (error) {
-                console.error("SELECT: ", error);
-                callback.json({error: true, result: 'Error get teachers list'}).end();
-                return;
-            }
+                if (error) {
+                    console.error("SELECT: ", error);
+                    callback.json({error: true, result: 'Error get teachers list'}).end();
+                    return;
+                }
 
-            if (results.rowCount == 0) {
-                callback.json({error: true, result: 'teachers list empty'}).end();
-                return;
-            }
+                if (results.rowCount == 0) {
+                    callback.json({error: true, result: 'teachers list empty'}).end();
+                    return;
+                }
             
-            callback.json({error: false, result: results.rows}).end();
-        });
+                callback.json({error: false, result: results.rows}).end();
+            });
 
         });
     });
+}
+
+function create(params,db,callback){
+    if (!(params && params.token)){
+        callback.json({error: true, result: 'Wrong params'}).end();
+        return;
+    }
+
+    
 }

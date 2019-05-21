@@ -38,25 +38,10 @@ function get(params,db,callback){
                 return;
             }
 
-            //if (decoded.permit > 1 && params.tid)
-               // decoded.tid = params.tid
-            /*
-            SELECT work_program.work_prog_id, work_program.edu_plan_id, work_program.specialty_code,\
-            teachers_list.pib, json_agg(lectures.*) as lectures  FROM  work_program, teachers_list, lectures\
-            WHERE work_program.teacher_id = teachers_list.teacher_id AND\
-            lectures.lecture_id = ANY (work_program.lectures_id) GROUP BY work_program.work_prog_id, teachers_list.pib
-            */
-
-
-
-            db.query('SELECT work_program.work_prog_id, work_program.edu_plan_id, work_program.specialty_code,\
-            teachers_list.pib, json_agg(lectures_u.*) as lectures FROM  work_program, teachers_list,\
-            (SELECT lectures.lecture_id, lectures.topic, lectures.type,\
-            lectures.work_content, json_agg(method_materials.*) as method_mat,\
-            lectures.control_type, lectures.total_points FROM lectures, method_materials WHERE\
-            method_materials.method_mat_id = ANY (lectures.method_mat_ids) GROUP BY lectures.lecture_id ) as lectures_u\
-            WHERE work_program.teacher_id = teachers_list.teacher_id AND\
-            lectures_u.lecture_id = ANY (work_program.lectures_id) GROUP BY work_program.work_prog_id, teachers_list.pib',
+            db.query('SELECT work_plan.work_plan_id, work_plan.subject_id,\
+            work_plan.lecture_id, work_plan.topic, work_plan.lec_type_id, \
+            work_plan.work_content, work_plan.control_type, work_plan.total_points \
+            FROM work_plan',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);

@@ -38,15 +38,9 @@ function get(params,db,callback){
                 return;
             }
 
-            //if (decoded.permit > 1 && params.tid)
-               // decoded.tid = params.tid
-
-            db.query('SELECT teachers_list.pib, subjects.name, \
-            individual_plan.num_lec_hours, individual_plan.num_prac_hours, \
-            individual_plan.num_lab_hours, individual_plan.num_indep_hours, \
-            individual_plan.num_indiv_hours FROM individual_plan, teachers_list, subjects WHERE \
-            teachers_list.teacher_id = individual_plan.teacher_id AND \
-            individual_plan.subject_id = subjects.subject_id',
+            db.query('SELECT lectures_plan.lec_plan_id, lectures_plan.work_plan_id,\
+            lectures_plan.teacher_id, lectures_plan.report_date, lectures_plan.method_mat_ids, \
+            FROM lectures_plan',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
