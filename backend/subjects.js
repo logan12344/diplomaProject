@@ -41,7 +41,7 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT * FROM  subjects ',
+            db.query('SELECT * FROM  subjects',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);

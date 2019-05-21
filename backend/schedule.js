@@ -41,7 +41,7 @@ function get(params,db,callback){
             if (decoded.permit > 1 && params.tid)
                 decoded.tid = params.tid
 
-            db.query('SELECT schedule.schedule_id, subjects.name, groups.group_name , schedule.lecture_id, schedule.audience, schedule.week, lecture_types.lecture_name, schedule.weekday FROM schedule, subjects, groups, lecture_types  WHERE teacher_id = $1 AND schedule.subject_id = subjects.subject_id AND groups.group_id = schedule.group_id AND schedule.lecture_type = lecture_types.lecture_type',
+            db.query('SELECT schedule.schedule_id, subjects.name, groups.group_name , schedule.lecture_id, schedule.audience, schedule.week, lecture_types.lecture_name, schedule.weekday FROM schedule, subjects, groups, lecture_types  WHERE schedule.teacher_id = $1 AND schedule.subject_id = subjects.subject_id AND groups.group_id = schedule.group_id AND schedule.lecture_type = lecture_types.lecture_type',
             [decoded.tid], (error, results) =>{
             if (error) {
                 console.error("SELECT: "+ error);
