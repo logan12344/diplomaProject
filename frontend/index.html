@@ -133,7 +133,7 @@
 				<tr>
 					<th>Назва дисципліни</th>
 					<th>Код навчального плану</th>
-					<th>Табельний номер викладача</th>
+					<th>П.І.Б</th>
 					<th>Семестр</th>
 					<th>Обов`язковість</th> 
 					<th>Години лекцій</th>
@@ -170,13 +170,14 @@
 		<table id="EdPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th>Код спеціальності</th>
-					<th>Код навчального плану</th> 
+					<th>Код навчального плану</th>
+					<th>Назва дисципліни</th> 
 					<th>Дата затвердження плану</th>
 					<th>Освітня кваліфікація</th>
 					<th>Рівень</th>
 					<th>Форма навчання</th>
 					<th>Термін навчання</th>
+					<th>Галузь знань</th>
 				</tr>
 			</thead>
 			<tbody class="EdPlanBody">
@@ -212,23 +213,23 @@
 		<table id="lecturesPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th style="width:7%;">Код плану заняття</th>
-					<th style="width:7%;">Код робочого плану</th> 
-					<th style="width:7%;">Табельний номер викладача</th>
-					<th style="width:7%;">Дата звітування</th>
-					<th>Методичні матеріали
+					<th style="width:7%;">П.І.Б</th>
+					<th>Заняття
 						<table style="display: table; width: 100%;">
 							<thead>
 								<tr>
-									<th style="width:7%">Код заняття</th>
-									<th style="width:7%">Тема</th> 
-									<th style="width:7%">Зміст роботи</th>
-									<th>Методичні матеріали
+									<th style="width:7%; border: none;">Номер заняття</th>
+									<th style="width:7%; border: none;">Тема</th> 
+									<th style="width:7%; border: none;">Зміст роботи</th>
+									<th style="width:7%; border: none;">Вид контролю</th>
+									<th style="width:7%; border: none;">Дата звітування</th>
+									<th style="width:7%; border: none;">Максимальна кількість балів</th>
+									<th style="width:7%; border: none;">Тип роботи</th>
+									<th style="width:51%; border: none;">Методичні матеріали
 										<table style="display: table; width: 100%;">
 											<thead>
 												<tr>
-													<th style="width:12%; border: none;">Код викладача</th>
-													<th style="width:14%; border: none;">Код навчального матеріалу</th> 
+													<th style="width:12%; border: none;">Автор матеріалу</th>
 													<th style="width:40%; border: none;">Ім`я файлу</th>
 													<th style="width:25%; border: none;">Опис</th>
 													<th style="width:11%; border: none;">Загальний доступ</th>
@@ -259,14 +260,21 @@
 		<table id="workPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th>Код навчального плану</th>
-					<th>Код дисципліни</th> 
-					<th>Номер заняття</th>
-					<th>Тема заняття</th>
-					<th>Вид заняття</th> 
-					<th>Зміст роботи</th> 
-					<th>Вид контролю</th>
-					<th>Всього балів</th>
+					<th>Назва дисципліни</th>
+					<th style="width:100%; border: none;">Заняття
+						<table style="display: table; width: 100%;">
+							<thead>
+								<tr>
+									<th style="width:15%; border: none;">Номер заняття</th>
+									<th style="width:15%; border: none;">Тема</th>
+									<th style="width:15%; border: none;">Зміст роботи</th>
+									<th style="width:15%; border: none;">Вид контролю</th>
+									<th style="width:25%; border: none;">Максимальна кількість балів</th>
+									<th style="width:15%; border: none;">Тип заняття</th>
+								</tr>
+							</thead>
+						</table>
+					</th>
 				</tr>
 			</thead>
 			<tbody class="workPlanBody">
