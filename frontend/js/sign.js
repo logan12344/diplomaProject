@@ -132,6 +132,16 @@ function lecturesPlan(){
 	});
 }
 
+function fileUploader(){
+	do_post("file.list", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		if(state == 200) {
+			parseFileUploader(data);
+		}
+	});
+}
+
 function closeUserSession(){
 	var session = document.getElementById(this.className).innerHTML;
 	console.log(session);

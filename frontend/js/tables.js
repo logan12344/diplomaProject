@@ -58,6 +58,8 @@ function shadow(){
 	document.getElementsByClassName('workPlanBody')[0].innerHTML = '';
 	document.getElementById('tableType').style.display = 'none';
 	document.getElementById('tableTypeSec').style.display = 'none';
+	document.getElementById('fileUploadTable').style.display = 'none';
+	document.getElementsByClassName('fileUploadTableBody')[0].innerHTML = '';
 }
 
 function parseUserSession(data){
@@ -332,12 +334,6 @@ function parseIndivPlan(data){
 	document.getElementById('HeaderTitle').innerHTML = 'Індивідуальний план';
 }
 
-function uploadFile(){
-	shadow();
-	document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
-	document.getElementById('HeaderTitle').innerHTML = 'Формування навчальних матеріалів';
-}
-
 function parseLecturesPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
@@ -357,6 +353,7 @@ function parseLecturesPlan(data){
 		for(var j=0; j<stroka.result[i].lectures.length; j++){
 			var t = document.createElement('tr');
 			c.appendChild(t);
+			t.style = 'background-color: #ECEAFA';
 			var tableH = document.createElement('th');
 			t.appendChild(tableH);
 			tableH.style = 'width: 7%; border: none;';
@@ -438,6 +435,7 @@ function parseWorkPlan(data){
 		for(var j=0; j<stroka.result[i].lectures.length; j++){
 			var t = document.createElement('tr');
 			c.appendChild(t);
+			t.style = 'background-color: #ECEAFA';
 			var tableH = document.createElement('th');
 			t.appendChild(tableH);
 			tableH.style = 'width: 15%; border: none;';
@@ -466,4 +464,25 @@ function parseWorkPlan(data){
 	}
 	document.getElementById('workPlan').style.display = 'table';
 	document.getElementById('HeaderTitle').innerHTML = 'План робіт з дисципліни';
+}
+
+function parseFileUploader(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	for(var i= 0; i< stroka.result.length; i++){
+		var t = document.createElement('tr');
+		document.getElementsByClassName('fileUploadTableBody')[0].appendChild(t);
+		var a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].file_name;
+		a = document.createElement('th');
+		t.appendChild(a);
+		a.innerHTML = stroka.result[i].description;
+		a = document.createElement('th');
+		t.appendChild(a);
+		trueFalse(a, stroka.result[i].public);
+	}
+	document.getElementById('fileUploadTable').style.display = 'table';
+	document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
+	document.getElementById('HeaderTitle').innerHTML = 'Формування навчальних матеріалів';
 }

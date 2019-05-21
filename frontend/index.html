@@ -41,7 +41,7 @@
 					<button class="NavchPlan">Робота зі студентом
 					</button>
 					<div class="dropdown-content">
-						<button class="dropdownButton" onclick="uploadFile();">Формування навчальних матеріалів</button>
+						<button class="dropdownButton" onclick="fileUploader();">Формування навчальних матеріалів</button>
 						<button class="dropdownButton">Контроль виконання завдання</button>
 						<button class="dropdownButton" onclick="lecturesPlan();">План занять</button>
 					</div>
@@ -72,7 +72,7 @@
 		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');">
 		</div>
 		<div id="windowIn">
-			<h1 id="Auth">Authentication</h1>
+			<h1 id="Auth">Авторизація</h1>
 			<form name="loginForm" id="loginForm">
 				<input class="in" type="text" id="login" placeholder="Login" name="Login" required />
 				<input class="in" type="password" id="password" placeholder="Password" name="Password" required />
@@ -80,7 +80,7 @@
 			</form>
 		</div>
 		<div id="windowUp">
-			<h1 id="Reg">Registration</h1>
+			<h1 id="Reg">Реєстрація</h1>
 			<form name="regForm" id="regForm">
 				<input class="up" type="text" id="loginReg" placeholder="Login" name="LoginReg" required />
 				<input class="up" type="text" id="teacheID" placeholder="Teacher ID" name="teacheID" required />
@@ -209,6 +209,17 @@
 					<input type="submit" id="submitFile" value="Завантажити"/>
 				</form>
 			</div>
+			<table id="fileUploadTable" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Ім`я файлу</th>
+					<th>Опис</th> 
+					<th>Загальний доступ</th>
+				</tr>
+			</thead>
+			<tbody class="fileUploadTableBody">
+			</tbody>
+		</table>
 		</div>
 		<table id="lecturesPlan" class="minimalistBlack" style="width:100%">
 			<thead>
@@ -260,7 +271,7 @@
 		<table id="workPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th>Назва дисципліни</th>
+					<th style="width:20%;">Назва дисципліни</th>
 					<th style="width:100%; border: none;">Заняття
 						<table style="display: table; width: 100%;">
 							<thead>
