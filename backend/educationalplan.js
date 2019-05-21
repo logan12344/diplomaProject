@@ -41,19 +41,25 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT educational_plan.edu_plan_id, educational_plan.specialty_code, \
-            educational_plan.approv_date, educational_plan.edu_quali_id, \
-            educational_plan.edu_level_id, educational_plan.edu_form_id, educational_plan.train_period \
-            FROM educational_plan',
+            db.query('SELECT educational_plan.edu_plan_id, specialty.specialty_name, \
+            educational_plan.approv_date, edu_quali.edu_quali_name, \
+            edu_level.edu_level_name, edu_form.edu_form_name, \
+            educational_plan.train_period, knowl_area.knowl_area_name \
+            FROM educational_plan, specialty, edu_quali, edu_level, edu_form, knowl_area \
+            WHERE educational_plan.specialty_code = specialty.specialty_id AND \
+            educational_plan.edu_quali_id = edu_quali.edu_quali_id AND \
+            educational_plan.edu_level_id = edu_level.edu_level_id AND \
+            educational_plan.edu_form_id = edu_form.edu_form_id AND \
+            educational_plan.knowl_area_id = knowl_area.knowl_area_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
-                callback.json({error: true, result: 'Error get teachers list'}).end();
+                callback.json({error: true, result: 'Error get educational plan'}).end();
                 return;
             }
 
             if (results.rowCount == 0) {
-                callback.json({error: true, result: 'teachers list empty'}).end();
+                callback.json({error: true, result: 'educational plan empty'}).end();
                 return;
             }
             

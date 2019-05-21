@@ -38,9 +38,24 @@ function get(params,db,callback){
                 return;
             }
 
-            db.query('SELECT lectures_plan.lec_plan_id, lectures_plan.work_plan_id,\
-            lectures_plan.teacher_id, lectures_plan.report_date, lectures_plan.method_mat_ids \
-            FROM lectures_plan',
+            db.query('SELECT teachers_list.teacher_id, teachers_list.pib,\
+            json_agg(lectures_plan.*) as lectures\
+            FROM teachers_list,\
+            (SELECT lectures_plan.lec_plan_id, subj_lectures.subj_lec_id, subj_lectures.lec_num,\
+             subj_lectures.topic, subj_lectures.work_content, subj_lectures.control_type,\
+            lectures_plan.teacher_id, lectures_plan.report_date, subj_lectures.total_points,\
+            lecture_types.lec_name, json_agg(method_materials.*) as method_mat \
+             FROM lectures_plan, subj_lectures, lecture_types, \
+             (SELECT teachers_list.pib, method_materials.method_mat_id,\
+              method_materials.file_name, method_materials.description, method_materials.public,\
+              method_materials.tmp_name FROM method_materials, teachers_list \
+              WHERE teachers_list.teacher_id = method_materials.teacher_id) as method_materials\
+            WHERE  method_materials.method_mat_id = ANY (lectures_plan.method_mat_ids) AND\
+             subj_lectures.subj_lec_id = lectures_plan.subj_lec_id AND\
+             subj_lectures.lec_type_id = lecture_types.lec_type_id\
+            GROUP BY lectures_plan.lec_plan_id, subj_lectures.subj_lec_id, lecture_types.lec_type_id) as lectures_plan\
+            WHERE lectures_plan.teacher_id  = teachers_list.teacher_id \
+            GROUP BY teachers_list.teacher_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);

@@ -38,10 +38,17 @@ function get(params,db,callback){
                 return;
             }
 
-            db.query('SELECT work_plan.work_plan_id, work_plan.subject_id,\
-            work_plan.lecture_id, work_plan.topic, work_plan.lec_type_id, \
-            work_plan.work_content, work_plan.control_type, work_plan.total_points \
-            FROM work_plan',
+            db.query('SELECT subjects.subject_id, subjects.name,\
+            json_agg(lectures.*) as lectures FROM work_plan, subjects, \
+            (SELECT subj_lectures.subj_lec_id, subj_lectures.lec_num, subj_lectures.topic, \
+            subj_lectures.work_content, subj_lectures.control_type, subj_lectures.total_points, \
+            lecture_types.lec_name FROM subj_lectures, lecture_types \
+            WHERE subj_lectures.lec_type_id = lecture_types.lec_type_id \
+            ORDER BY subj_lectures.lec_num ) as lectures  \
+            WHERE lectures.subj_lec_id = ANY(work_plan.lecture_ids) AND \
+            work_plan.subject_id = subjects.subject_id \
+            GROUP BY subjects.subject_id \
+            ORDER BY subjects.subject_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);

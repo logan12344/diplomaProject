@@ -41,7 +41,12 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT * FROM  subjects',
+            db.query('SELECT subjects.subject_id, subjects.name, subjects.selective,\
+            subjects.num_lec_hours, subjects.num_prac_hours, subjects.num_lab_hours,\
+            subjects.num_indep_hours, subjects.num_indiv_hours, subjects.project,\
+            subjects.exam, subjects.edu_plan_id, subjects.term, teachers_list.pib ,\
+            subjects.work_prog_file_id FROM subjects, teachers_list \
+            WHERE subjects.teacher_id = teachers_list.teacher_id',
             [], (error, results) =>{
             if (error) {
                 console.error("SELECT: ", error);
