@@ -9,10 +9,10 @@ exports.exec = (method, params, files, db, callback) => {
             break;
         /*case 'download':
             Download(params,db,callback); 
-            break;   
+            break;  */ 
         case 'list':
             List(params,db,callback);  
-            break;  */
+            break; 
         default:
             callback.status(404).end();
             break;
@@ -32,17 +32,31 @@ function Upload(params, files, db, callback){
             return;
         }
 
-        if(files.uploadFiles[0]) {
-            for (let i = 0; i < files.uploadFiles.length; i++){
-                save_file(uuid(), files.uploadFiles[i], params, decoded, db);
+        db.query('SELECT * FROM active_sessions WHERE user_id = $1 AND session_id = $2',
+        [decoded.uid, decoded.sid], (error, results) => {
+            if (error){
+                console.error(error);
+                callback.json({error: true,  result: 'Error SignIn'}).end();
+                return;
             }
 
-            callback.end();
-            return;
-        }
+            if (results.rowCount == 0) {
+                callback.json({error: true, result: 'Token expired'}).end();
+                return;
+            }
 
-        save_file(uuid(), files.uploadFiles, params, decoded, db);
-        callback.end();
+            if(files.uploadFiles[0]) {
+                for (let i = 0; i < files.uploadFiles.length; i++){
+                    save_file(uuid(), files.uploadFiles[i], params, decoded, db);
+                }
+    
+                callback.end();
+                return;
+            }
+    
+            save_file(uuid(), files.uploadFiles, params, decoded, db);
+            callback.end();
+        });    
     });
 }
 
@@ -61,5 +75,53 @@ function save_file (new_name, file, params, decoded, db){
                 return;
             }
         });
+    });
+}
+
+function List(params, db, callback){
+    if (!(params && params.token)){
+        callback.json({error: true, result: 'Wrong params'}).end();
+        return;
+    }
+
+    jwt.verify(params.token, token_config.secret, (error, decoded) => {
+        if (error){
+            console.error(error);
+            callback.json({error: true, result: 'Wrong token'}).end();
+            return;
+        }
+
+        db.query('SELECT * FROM active_sessions WHERE user_id = $1 AND session_id = $2',
+        [decoded.uid, decoded.sid], (error, results) => {
+            if (error){
+                console.error(error);
+                callback.json({error: true,  result: 'Error SignIn'}).end();
+                return;
+            }
+
+            if (results.rowCount == 0) {
+                callback.json({error: true, result: 'Token expired'}).end();
+                return;
+            }
+
+            db.query('SELECT method_mat_id, file_name, description, public\
+             FROM method_materials WHERE teacher_id = $1',
+            [decoded.tid], (error, results) =>{
+                if (error){
+                    console.error(error);
+                    callback.json({error: true,  result: 'Error list files'}).end();
+                    return;
+                }
+
+                if (results.rowCount == 0) {
+                    callback.json({error: true,  result: 'files not found'}).end();
+                    return;
+                }
+
+                callback.json({error: false, result: results.rows}).end();
+    
+            });
+        });
+
     });
 }
