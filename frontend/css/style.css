@@ -114,8 +114,8 @@ body {
 #windowIn, #windowUp, #windowOut{
 	display: none;
 	width: 55%;
-	height: 40%;
-	margin: 110px auto;
+	height: 400px;
+	margin: 5% auto;
 	background: #fff;
 	z-index: 200;
 	position: fixed;
@@ -308,4 +308,14 @@ table.minimalistBlack thead th {
   margin-left: auto;
   margin-right: auto;
   width: 30%;
+}
+
+#tableType, #tableTypeSec{
+	display:none;
+	text-align:center;
+	font-size: 16px; 
+	color: white;
+	padding: 14px 16px;
+	background-color: #B22222;
+	font-family: inherit;
 }

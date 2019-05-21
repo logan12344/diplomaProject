@@ -34,7 +34,7 @@
 					<div class="dropdown-content">
 						<button class="dropdownButton" onclick="indivPlan();">Індивідуальний план</button>
 						<button class="dropdownButton" onclick="edPlan();">Навчальний план</button>
-						<button class="dropdownButton" onclick="workProg();">Робоча програма</button>
+						<button class="dropdownButton" onclick="workPlan();">План робіт з дисципліни</button>
 					</div>
 				</div>
 				<div class="dropdown">
@@ -43,9 +43,7 @@
 					<div class="dropdown-content">
 						<button class="dropdownButton" onclick="uploadFile();">Формування навчальних матеріалів</button>
 						<button class="dropdownButton">Контроль виконання завдання</button>
-						<button class="dropdownButton">План робіт з дисципліни</button>
-						<button class="dropdownButton">Перевірка звітів</button>
-						<button class="dropdownButton">Журнал успішності</button>
+						<button class="dropdownButton" onclick="lecturesPlan();">План занять</button>
 					</div>
 				</div>			
 				<button class="NavchPlan" >Звіти</button>
@@ -94,26 +92,49 @@
 			<h1 id="after"></h1>
 			<img id="chech">
 		</div>
-		<table id="Rozk" class="minimalistBlack" style="width:100%">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Понеділок</th>
-					<th>Вівторок</th> 
-					<th>Середа</th>
-					<th>Четверг</th>
-					<th>П`ятниця</th> 
-					<th>Субота</th>
-					<th>Неділя</th>
-				</tr>
-			</thead>
-			<tbody class="RozkBody">
-			</tbody>
-		</table>
+		<div>
+			<div id="tableType">Верхній тиждень</div>
+			<table id="Rozk" class="minimalistBlack" style="width:100%">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Понеділок</th>
+						<th>Вівторок</th> 
+						<th>Середа</th>
+						<th>Четверг</th>
+						<th>П`ятниця</th> 
+						<th>Субота</th>
+						<th>Неділя</th>
+					</tr>
+				</thead>
+				<tbody class="RozkBody">
+				</tbody>
+			</table>
+			<div id="tableTypeSec">Нижній тиждень</div>
+			<table id="RozkSec" class="minimalistBlack" style="width:100%">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Понеділок</th>
+						<th>Вівторок</th> 
+						<th>Середа</th>
+						<th>Четверг</th>
+						<th>П`ятниця</th> 
+						<th>Субота</th>
+						<th>Неділя</th>
+					</tr>
+				</thead>
+				<tbody class="RozkSecBody">
+				</tbody>
+			</table>
+		</div>
 		<table id="Disc" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
 					<th>Назва дисципліни</th>
+					<th>Код навчального плану</th>
+					<th>Табельний номер викладача</th>
+					<th>Семестр</th>
 					<th>Обов`язковість</th> 
 					<th>Години лекцій</th>
 					<th>Години практик</th>
@@ -122,6 +143,7 @@
 					<th>Години індивідуальних</th>
 					<th>Курсовий проект</th>
 					<th>Екзамен</th>
+					<th>Файл робочої програми</th>
 				</tr>
 			</thead>
 			<tbody class="discBody">
@@ -149,14 +171,12 @@
 			<thead>
 				<tr>
 					<th>Код спеціальності</th>
-					<th>Назва дисципліни</th> 
-					<th>Рік затвердження плану</th>
-					<th>Семестр</th>
-					<th>Ступінь</th>
-					<th>Форма навчання</th> 
+					<th>Код навчального плану</th> 
+					<th>Дата затвердження плану</th>
+					<th>Освітня кваліфікація</th>
 					<th>Рівень</th>
-					<th>Кількість груп</th>
-					<th>Кількість студентів</th>
+					<th>Форма навчання</th>
+					<th>Термін навчання</th>
 				</tr>
 			</thead>
 			<tbody class="EdPlanBody">
@@ -166,7 +186,7 @@
 			<thead>
 				<tr>
 					<th>П.І.Б</th>
-					<th>Номер навчального плану</th> 
+					<th>Назва дисципліни</th> 
 					<th>Кількість годин лекцій</th>
 					<th>Кількість годин практик</th>
 					<th>Кількість годин лабораторних</th> 
@@ -189,14 +209,14 @@
 				</form>
 			</div>
 		</div>
-		<table id="WorkProg" class="minimalistBlack" style="width:100%">
+		<table id="lecturesPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th style="width:7%;">Код робочої програми</th>
-					<th style="width:7%;">Код навчальної програми</th> 
-					<th style="width:7%;">Код спеціальності</th>
-					<th style="width:7%;">П.І.Б</th>
-					<th>Заняття
+					<th style="width:7%;">Код плану заняття</th>
+					<th style="width:7%;">Код робочого плану</th> 
+					<th style="width:7%;">Табельний номер викладача</th>
+					<th style="width:7%;">Дата звітування</th>
+					<th>Методичні матеріали
 						<table style="display: table; width: 100%;">
 							<thead>
 								<tr>
@@ -222,7 +242,7 @@
 					</th>
 				</tr>
 			</thead>
-			<tbody class="WorkProgBody">
+			<tbody class="lecturesPlanBody">
 			</tbody>
 		</table>
 		<table id="UserSession" class="minimalistBlack" style="width:100%">
@@ -234,6 +254,22 @@
 				</tr>
 			</thead>
 			<tbody class="UserSessionBody">
+			</tbody>
+		</table>
+		<table id="workPlan" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Код навчального плану</th>
+					<th>Код дисципліни</th> 
+					<th>Номер заняття</th>
+					<th>Тема заняття</th>
+					<th>Вид заняття</th> 
+					<th>Зміст роботи</th> 
+					<th>Вид контролю</th>
+					<th>Всього балів</th>
+				</tr>
+			</thead>
+			<tbody class="workPlanBody">
 			</tbody>
 		</table>
 	</body>

@@ -40,12 +40,12 @@ function processFormUp(e) {
     return false;
 }
 
-function workProg(){
-	do_post("workprogram.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
+function workPlan(){
+	do_post("workplan.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
 		console.log(data);
 		if(state == 200) {
-			parseWorkProg(data);
+			parseWorkPlan(data);
 		}
 	});
 }
@@ -120,6 +120,16 @@ function processFormIn(e) {
 		}
 	});
     return false;
+}
+
+function lecturesPlan(){
+	do_post("lecturesplan.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		if(state == 200) {
+			parseLecturesPlan(data);
+		}
+	});
 }
 
 function closeUserSession(){
