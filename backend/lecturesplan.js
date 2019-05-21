@@ -39,7 +39,7 @@ function get(params,db,callback){
             }
 
             db.query('SELECT lectures_plan.lec_plan_id, lectures_plan.work_plan_id,\
-            lectures_plan.teacher_id, lectures_plan.report_date, lectures_plan.method_mat_ids, \
+            lectures_plan.teacher_id, lectures_plan.report_date, lectures_plan.method_mat_ids \
             FROM lectures_plan',
             [], (error, results) =>{
             if (error) {

@@ -43,7 +43,7 @@ function get(params,db,callback){
 
             db.query('SELECT educational_plan.edu_plan_id, educational_plan.specialty_code, \
             educational_plan.approv_date, educational_plan.edu_quali_id, \
-            educational_plan.edu_level_id, educational_plan.edu_form_id \
+            educational_plan.edu_level_id, educational_plan.edu_form_id, educational_plan.train_period \
             FROM educational_plan',
             [], (error, results) =>{
             if (error) {
