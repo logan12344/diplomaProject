@@ -15,8 +15,6 @@
 				forma1.onsubmit = processFormIn;
 				var forma2 = document.getElementById("regForm");
 				forma2.onsubmit = processFormUp;
-				var formaUpload = document.getElementById("upFile");
-				formaUpload.onsubmit = uploadFiles;
 				if(window.localStorage.getItem("token")!=null && window.localStorage.getItem("pib")!=null){
 					onReload('block', 'none', window.localStorage.getItem("pib"));
 				}
@@ -42,11 +40,11 @@
 					</button>
 					<div class="dropdown-content">
 						<button class="dropdownButton" onclick="fileUploader();">Формування навчальних матеріалів</button>
-						<button class="dropdownButton">Контроль виконання завдання</button>
+						<button class="dropdownButton" onclick="TaskEx();">Контроль виконання завдання</button>
 						<button class="dropdownButton" onclick="lecturesPlan();">План занять</button>
 					</div>
 				</div>			
-				<button class="NavchPlan" >Звіти</button>
+				<button class="NavchPlan" onclick="ZvitiZ();">Звіти</button>
 				<div class="dropdown">
 					<button class="NavchPlan">Ведення довідників 
 					</button>
@@ -72,7 +70,7 @@
 		<div>
 			<img id="emptyImg" src="image/empty.png">
 		</div>
-		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');">
+		<div id="wrap" onclick="show('none', 'windowIn');show('none', 'windowUp');show('none', 'windowAdd');">
 		</div>
 		<div id="windowIn">
 			<h1 id="Auth">Авторизація</h1>
@@ -94,6 +92,11 @@
 		<div id="windowOut">
 			<h1 id="after"></h1>
 			<img id="chech">
+		</div>
+		<div id="windowAdd">
+			<form name="AddForm" id="addForm">
+				
+			</form>
 		</div>
 		<div>
 			<div id="tableType">Верхній тиждень</div>
@@ -147,7 +150,9 @@
 					<th>Курсовий проект</th>
 					<th>Екзамен</th>
 					<th>Файл робочої програми</th>
-					<th></th>
+					<th>
+						<button onclick="show('block', 'windowAdd'); AddRowDisc();">+</button>
+					</th>
 				</tr>
 			</thead>
 			<tbody class="discBody">
@@ -166,7 +171,7 @@
 					<th>Вчене звання</th>
 					<th>Науковий ступінь</th>
 					<th>Дисципліни</th>
-					<th></th>
+					<th><button onclick="show('block', 'windowAdd'); AddRowVikl();">+</button></th>
 				</tr>
 			</thead>
 			<tbody class="ViklBody">
@@ -175,14 +180,16 @@
 		<table id="EdPlan" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
-					<th>Назва дисципліни</th> 
+					<th>Назва спеціальності</th> 
 					<th>Дата затвердження плану</th>
 					<th>Освітня кваліфікація</th>
 					<th>Рівень</th>
 					<th>Форма навчання</th>
 					<th>Термін навчання</th>
 					<th>Галузь знань</th>
-					<th></th>
+					<th>
+						<button onclick="show('block', 'windowAdd'); AddRowEd();">+</button>
+					</th>
 				</tr>
 			</thead>
 			<tbody class="EdPlanBody">
@@ -198,30 +205,20 @@
 					<th>Кількість годин лабораторних</th> 
 					<th>Кількість годин самостійних</th> 
 					<th>Кількість годин індивідуальних</th>
-					<th></th>
+					<th><button onclick="show('block', 'windowAdd'); AddRowIndivPlan();">+</button></th>
 				</tr>
 			</thead>
 			<tbody class="IndivPlanBody">
 			</tbody>
 		</table>
 		<div class="formNavchMat">
-			<div id="fileUpload">
-				<form name="upFile" id="upFile">
-					<input type="file" id="upload" name="uploadFiles" multiple />
-					<input type="checkbox" id="check" name="public">Загальний доступ</input>
-					<div>
-						<textarea id="descriptionUp" maxlength="500" name="desc"></textarea>
-					</div>
-					<input type="submit" id="submitFile" value="Завантажити"/>
-				</form>
-			</div>
 			<table id="fileUploadTable" class="minimalistBlack" style="width:100%">
 			<thead>
 				<tr>
 					<th>Ім`я файлу</th>
 					<th>Опис</th> 
 					<th>Загальний доступ</th>
-					<th></th>
+					<th><button onclick="show('block', 'windowAdd'); AddRowFileUp();">+</button></th>
 				</tr>
 			</thead>
 			<tbody class="fileUploadTableBody">
@@ -296,6 +293,32 @@
 				</tr>
 			</thead>
 			<tbody class="workPlanBody">
+			</tbody>
+		</table>
+		<table id="Zviti" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Від кого</th>
+					<th>Кому</th> 
+					<th>Файл звіту</th>
+					<th><button onclick="show('block', 'windowAdd'); AddRowZviti();">+</button></th>
+				</tr>
+			</thead>
+			<tbody class="ZvitiBody">
+			</tbody>
+		</table>
+		<table id="TaskEx" class="minimalistBlack" style="width:100%">
+			<thead>
+				<tr>
+					<th>Планова дата здачі</th>
+					<th>Тема</th> 
+					<th>П.І.Б. студента</th>
+					<th>Файл звіту</th>
+					<th>Дата відправлення</th>
+					<th><button onclick="show('block', 'windowAdd'); AddRowTaskEx();">+</button></th>
+				</tr>
+			</thead>
+			<tbody class="TaskExBody">
 			</tbody>
 		</table>
 	</body>

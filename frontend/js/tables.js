@@ -75,6 +75,10 @@ function shadow(){
 	document.getElementById('tableTypeSec').style.display = 'none';
 	document.getElementById('fileUploadTable').style.display = 'none';
 	document.getElementsByClassName('fileUploadTableBody')[0].innerHTML = '';
+	document.getElementById('Zviti').style.display = 'none';
+	document.getElementsByClassName('ZvitiBody')[0].innerHTML = '';
+	document.getElementById('TaskEx').style.display = 'none';
+	document.getElementsByClassName('TaskExBody')[0].innerHTML = '';
 }
 
 function parseUserSession(data){
@@ -186,7 +190,7 @@ function parseDisc(data){
 			createTable(t, stroka.result[i].num_indiv_hours);
 			createTable(t, stroka.result[i].project);
 			createTable(t, stroka.result[i].exam);
-			createTable(t, stroka.result[i].work_prog_file_id);
+			createTable(t, stroka.result[i].file_name);
 			a = document.createElement('th');
 			t.appendChild(a);
 			createBettonDelete(a, stroka.result[i].subject_id, deleteDiscTableInfo);
@@ -285,6 +289,7 @@ function parseIndivPlan(data){
 			createTable(t, stroka.result[i].num_lec_hours);
 			createTable(t, stroka.result[i].num_prac_hours);
 			createTable(t, stroka.result[i].num_lab_hours);
+			createTable(t, stroka.result[i].num_indep_hours);
 			createTable(t, stroka.result[i].num_indiv_hours);
 			var a = document.createElement('th');
 			t.appendChild(a);
@@ -451,4 +456,184 @@ function parseFileUploader(data){
 		document.getElementsByClassName('formNavchMat')[0].style.display = 'block';
 	}
 	document.getElementById('HeaderTitle').innerHTML = 'Формування навчальних матеріалів';
+}
+
+function parseZvitiZ(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
+	}
+	else{
+		for(var i= 0; i< stroka.result.length; i++){
+			var t = document.createElement('tr');
+			document.getElementsByClassName('ZvitiBody')[0].appendChild(t);
+			createTable(t, stroka.result[i].from);
+			createTable(t, stroka.result[i].to);
+			createTable(t, stroka.result[i].file_name);
+			var a = document.createElement('th');
+			t.appendChild(a);
+			createBettonDelete(a, stroka.result[i].report_id, deletefileZvitiZInfo);
+		}
+		document.getElementById('Zviti').style.display = 'table';
+	}
+	document.getElementById('HeaderTitle').innerHTML = 'Звіти';
+}
+
+function parseTaskEx(data){
+	shadow();
+	var stroka = JSON.parse(data);
+	if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
+	}
+	else{
+		for(var i= 0; i< stroka.result.length; i++){
+			var t = document.createElement('tr');
+			document.getElementsByClassName('TaskExBody')[0].appendChild(t);
+			createTable(t, stroka.result[i].report_date.split('T')[0]);
+			createTable(t, stroka.result[i].topic);
+			createTable(t, stroka.result[i].pib);
+			createTable(t, stroka.result[i].file_name);
+			createTable(t, stroka.result[i].send_date.split('T')[0]);
+			var a = document.createElement('th');
+			t.appendChild(a);
+			createBettonDelete(a, stroka.result[i].task_id, deletefileTaskExInfo);
+		}
+		document.getElementById('TaskEx').style.display = 'table';
+	}
+	document.getElementById('HeaderTitle').innerHTML = 'Контроль виконання завдання';
+}
+
+function AddRowZviti(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "Від кого", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Кому", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "file", "Файл звіту", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	//forma.onsubmit = addEd;
+}
+
+function AddRowTaskEx(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "Планова дата здачі", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Тема", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "text", "Фаайл звіту", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput4", "text", "Дата відправлення", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	//forma.onsubmit = addEd;
+}
+
+function AddRowEd(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "Назва спеціальності", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Дата затвердження плану", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "text", "Освітня кваліфікація", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput4", "text", "Рівень", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput5", "text", "Форма навчання", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput6", "text", "Термін навчання", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput7", "text", "Галузь знань", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	forma.onsubmit = addEd;
+}
+
+function AddRowDisc(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "Назва дисципліни", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Код навчального плану", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "text", "П.І.Б", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput4", "text", "Семестр", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput5", "text", "Обов`язковість", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput6", "text", "Години лекцій", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput7", "text", "Години практик", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput8", "text", "Години лабораторних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput9", "text", "Години самостійних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput10", "text", "Години індивідуальних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput11", "text", "Курсовий проект", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput12", "text", "Екзамен", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput13", "text", "Файл робочої програми", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	//forma.onsubmit = ;
+}
+
+function AddRowVikl(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "П.І.Б.", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Номер телефону", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "text", "Електронна пошта", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput4", "text", "Адреса", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput5", "text", "Стаж роботи", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput6", "text", "Посада", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput7", "text", "Вчене звання", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput8", "text", "Науковий ступінь", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput9", "text", "Дисципліни", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	//forma.onsubmit = ;
+}
+
+function AddRowIndivPlan(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	createInput(forma, "EdPlanInput1", "text", "П.І.Б.", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput2", "text", "Назва дисципліни", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput3", "text", "Кількість годин лекцій	", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput4", "text", "Кількість годин практик", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput5", "text", "Кількість годин лабораторних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput6", "text", "Кількість годин самостійних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanInput7", "text", "Кількість годин індивідуальних", "left", "EdPlanInputEr");
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	//forma.onsubmit = ;
+}
+
+function AddRowFileUp(){
+	document.getElementById("addForm").innerHTML = "";
+	var forma = document.getElementById("addForm");
+	var di = document.createElement('div');
+	forma.appendChild(di);
+	var di2 = document.createElement('div');
+	di.appendChild(di2);
+	di2.style.width = '100%';
+	createInput(di2, "EdPlanInput1", "file", "", "left", "EdPlanInputEr");
+	createInput(di2, "EdPlanInput2", "checkbox", "Загальний доступ", "left", "EdPlanInputEr");
+	var d = document.createElement('div');
+	di.appendChild(d);
+	d.style.width = '10%';
+	var textB = document.createElement('textarea');
+	d.appendChild(textB);
+	textB.id = 'descriptionUp';
+	textB.name = 'desc';
+	createInput(forma, "EdPlanSubmit", "submit", "Додати");
+	forma.onsubmit = uploadFiles;
+}
+
+function createInput(forma, id, typeOf, holder, state, classer){
+	var a = document.createElement('input');
+	forma.appendChild(a);
+	a.style.float = state;
+	a.style.margin = "1%";
+	a.setAttribute("type", typeOf);
+	a.id = id;
+	if(typeOf == 'text'){
+		a.classList.add(classer);
+		a.required = "required";
+		a.placeholder = holder;
+	}else if(typeOf == 'checkbox'){
+		a.name = "public";
+		a.id = 'check';
+		var a2 = document.createElement('a');
+		forma.appendChild(a2);
+		a2.style.float = state;
+		a2.innerHTML = holder;
+	}else if(typeOf == 'file'){
+		a.id = 'upload';
+		a.name = "uploadFiles";
+		a.multiple = "multiple";
+	}
+	else{
+		a.value = holder;
+	}
 }

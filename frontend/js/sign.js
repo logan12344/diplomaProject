@@ -22,6 +22,7 @@ function uploadFiles(e){
 			if(window._http_request.readyState === XMLHttpRequest.DONE){
 				document.getElementById('descriptionUp').value = '';
 				document.getElementById('upload').value = '';
+				document.getElementById('check').checked = false;
 			}
 		};
 		window._http_request.send(body);
@@ -122,6 +123,17 @@ function processFormIn(e) {
     return false;
 }
 
+function addUpFile(e) {
+    if (e.preventDefault) e.preventDefault();
+	do_post("file.upload", ["token", window.localStorage.getItem("token"), ], (state, data) => {
+		console.log(state);
+		console.log(data);
+		//if(state == 200)
+		//	allFine(data);
+	});
+    return false;
+}
+
 function lecturesPlan(){
 	do_post("lecturesplan.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
 		console.log(state);
@@ -129,6 +141,24 @@ function lecturesPlan(){
 		if(state == 200) {
 			parseLecturesPlan(data);
 		}
+	});
+}
+
+function TaskEx(){
+	do_post("taskexecution.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		if(state == 200)
+			parseTaskEx(data);
+	});
+}
+
+function ZvitiZ(){
+	do_post("report.get", ["token", window.localStorage.getItem("token")], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		if(state == 200) 
+			parseZvitiZ(data);
 	});
 }
 
@@ -163,6 +193,20 @@ function deleteIndivTableInfo(){
 		var stroka = JSON.parse(data);
 		if(stroka.error == false)
 			parseIndivPlan(data);
+		if(stroka.error == true)
+			document.getElementById('emptyImg').style.display = 'block';
+	});
+}
+
+function deletefileTaskExInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("taskexecution.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false)
+			parseTaskEx(data);
 		if(stroka.error == true)
 			document.getElementById('emptyImg').style.display = 'block';
 	});
@@ -207,6 +251,22 @@ function deletefileUploaderInfo(){
 		var stroka = JSON.parse(data);
 		if(stroka.error == false){
 			parseFileUploader(data);
+		}
+		if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
+		}
+	});
+}
+
+function deletefileZvitiZInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("report.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false){
+			parseZvitiZ(data);
 		}
 		if(stroka.error == true){
 			document.getElementById('emptyImg').style.display = 'block';

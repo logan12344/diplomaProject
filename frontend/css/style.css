@@ -111,7 +111,7 @@ body {
 	overflow: auto;
 }
 	
-#windowIn, #windowUp, #windowOut{
+#windowIn, #windowUp, #windowOut, #windowAdd{
 	display: none;
 	width: 55%;
 	height: 400px;
@@ -325,4 +325,23 @@ table.minimalistBlack thead th {
 	padding: 14px 16px;
 	background-color: #B22222;
 	font-family: inherit;
+}
+
+.EdPlanInputEr{
+	font-size: 16px;  
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+#EdPlanSubmit{
+	cursor: pointer;
+	font-size: 16px; 
+	border: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: #333; 
+	font-family: inherit;
+	border-radius: 4px;
 }
