@@ -142,6 +142,62 @@ function fileUploader(){
 	});
 }
 
+function deleteEdTableInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("educationalplan.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false)
+			parseEdPlan(data);
+	});
+}
+
+function deleteIndivTableInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("individualplan.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false)
+			parseIndivPlan(data);
+		if(stroka.error == true)
+			document.getElementById('emptyImg').style.display = 'block';
+	});
+}
+
+function deleteDiscTableInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("subjects.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false)
+			parseDisc(data);
+		if(stroka.error == true)
+			document.getElementById('emptyImg').style.display = 'block';
+	});
+}
+
+function deleteViklTableInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("teachers.delete", ["token", window.localStorage.getItem("token"), "id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false){
+			parseVikl(data);
+		}
+		if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
+		}
+	});
+}
+
 function closeUserSession(){
 	var session = document.getElementById(this.className).innerHTML;
 	console.log(session);

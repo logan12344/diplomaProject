@@ -54,6 +54,7 @@ function shadow(){
 	document.getElementById('lecturesPlan').style.display = 'none';
 	document.getElementsByClassName('lecturesPlanBody')[0].innerHTML = '';
 	document.getElementById('officeImg').style.display = 'none';
+	document.getElementById('emptyImg').style.display = 'none';
 	document.getElementById('workPlan').style.display = 'none';
 	document.getElementsByClassName('workPlanBody')[0].innerHTML = '';
 	document.getElementById('tableType').style.display = 'none';
@@ -98,9 +99,6 @@ function parseEdPlan(data){
 		document.getElementsByClassName('EdPlanBody')[0].appendChild(t);
 		var a = document.createElement('th');
 		t.appendChild(a);
-		a.innerHTML = stroka.result[i].edu_plan_id;
-		a = document.createElement('th');
-		t.appendChild(a);
 		a.innerHTML = stroka.result[i].specialty_name;
 		a = document.createElement('th');
 		t.appendChild(a);
@@ -120,6 +118,13 @@ function parseEdPlan(data){
 		a = document.createElement('th');
 		t.appendChild(a);
 		a.innerHTML = stroka.result[i].knowl_area_name;
+		a = document.createElement('th');
+		t.appendChild(a);
+		var b = document.createElement('button');
+		a.appendChild(b);
+		b.id = stroka.result[i].edu_plan_id;
+		b.innerHTML = 'Видалити';
+		b.onclick = deleteEdTableInfo;
 	}
 	document.getElementById('EdPlan').style.display = 'table';
 	document.getElementById('HeaderTitle').innerHTML = 'Навчальний план';
@@ -128,98 +133,122 @@ function parseEdPlan(data){
 function parseVikl(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	for(var i= 0; i< stroka.result.length; i++){
-		var t = document.createElement('tr');
-		document.getElementsByClassName('ViklBody')[0].appendChild(t);
-		var a = document.createElement('img');
-		t.appendChild(a);
-		if(stroka.result[i].photo)
-			a.src = stroka.result[i].photo;
-		else
-			a.src = 'image/avatar.jpg';
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].pib;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].contact_info[0];
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].contact_info[1];
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].contact_info[2];
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].work_exp;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].position;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].academic_status;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].degree;
-		a = document.createElement('th');
-		t.appendChild(a);
-		var s = '';
-		for(var o=0; o< stroka.result[i].discipline.length; o++){
-			s += stroka.result[i].discipline[o] + ', ';
-		}
-		a.innerHTML = s;
+	if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
 	}
-	document.getElementById('Vikl').style.display = 'table';
+	else{
+		for(var i= 0; i< stroka.result.length; i++){
+			var t = document.createElement('tr');
+			document.getElementsByClassName('ViklBody')[0].appendChild(t);
+			var a = document.createElement('img');
+			t.appendChild(a);
+			if(stroka.result[i].photo)
+				a.src = stroka.result[i].photo;
+			else
+				a.src = 'image/avatar.jpg';
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].pib;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].contact_info[0];
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].contact_info[1];
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].contact_info[2];
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].work_exp;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].position;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].academic_status;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].degree;
+			a = document.createElement('th');
+			t.appendChild(a);
+			var s = '';
+			for(var o=0; o< stroka.result[i].discipline.length; o++){
+				s += stroka.result[i].discipline[o] + ', ';
+			}
+			a.innerHTML = s;
+			a = document.createElement('th');
+			t.appendChild(a);
+			var b = document.createElement('button');
+			a.appendChild(b);
+			b.id = stroka.result[i].teacher_id;
+			b.innerHTML = 'Видалити';
+			b.onclick = deleteViklTableInfo;
+		}
+		document.getElementById('Vikl').style.display = 'table';
+	}
 	document.getElementById('HeaderTitle').innerHTML = 'Довідник викладачів';	
 }
 
 function parseDisc(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	for(var i= 0; i< stroka.result.length; i++){
-		var t = document.createElement('tr');
-		document.getElementsByClassName('discBody')[0].appendChild(t);
-		var a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].name;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].edu_plan_id;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].pib;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].term;
-		a = document.createElement('th');
-		t.appendChild(a);
-		trueFalse(a, stroka.result[i].selective);
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_lec_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_prac_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_lab_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_indep_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_indiv_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		trueFalse(a, stroka.result[i].project);
-		a = document.createElement('th');
-		t.appendChild(a);
-		trueFalse(a, stroka.result[i].exam);
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].work_prog_file_id;
+	if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
 	}
-	document.getElementById('Disc').style.display = 'table';	
+	else{
+		for(var i= 0; i< stroka.result.length; i++){
+			var t = document.createElement('tr');
+			document.getElementsByClassName('discBody')[0].appendChild(t);
+			var a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].name;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].edu_plan_id;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].pib;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].term;
+			a = document.createElement('th');
+			t.appendChild(a);
+			trueFalse(a, stroka.result[i].selective);
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_lec_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_prac_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_lab_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_indep_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_indiv_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			trueFalse(a, stroka.result[i].project);
+			a = document.createElement('th');
+			t.appendChild(a);
+			trueFalse(a, stroka.result[i].exam);
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].work_prog_file_id;
+			a = document.createElement('th');
+			t.appendChild(a);
+			var b = document.createElement('button');
+			a.appendChild(b);
+			b.id = stroka.result[i].subject_id;
+			b.innerHTML = 'Видалити';
+			//b.onclick = deleteDiscTableInfo;
+		}
+		document.getElementById('Disc').style.display = 'table';
+	}		
 	document.getElementById('HeaderTitle').innerHTML = 'Довідник дисциплін';
 }
 
@@ -304,33 +333,44 @@ function rozkTable(stroka, place){
 function parseIndivPlan(data){
 	shadow();
 	var stroka = JSON.parse(data);
-	for(var i= 0; i< stroka.result.length; i++){
-		var t = document.createElement('tr');
-		document.getElementsByClassName('IndivPlanBody')[0].appendChild(t);
-		var a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].pib;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].name;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_lec_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_prac_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_lab_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_indep_hours;
-		a = document.createElement('th');
-		t.appendChild(a);
-		a.innerHTML = stroka.result[i].num_indiv_hours;
-		a = document.createElement('th');
+	if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
 	}
-	document.getElementById('IvdivPlan').style.display = 'table';
+	else{
+		for(var i= 0; i< stroka.result.length; i++){
+			var t = document.createElement('tr');
+			document.getElementsByClassName('IndivPlanBody')[0].appendChild(t);
+			var a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].pib;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].name;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_lec_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_prac_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_lab_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_indep_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			a.innerHTML = stroka.result[i].num_indiv_hours;
+			a = document.createElement('th');
+			t.appendChild(a);
+			var b = document.createElement('button');
+			a.appendChild(b);
+			b.id = stroka.result[i].individ_plan_id;
+			b.innerHTML = 'Видалити';
+			b.onclick = deleteIndivTableInfo;
+		}
+		document.getElementById('IvdivPlan').style.display = 'table';
+	}
 	document.getElementById('HeaderTitle').innerHTML = 'Індивідуальний план';
 }
 

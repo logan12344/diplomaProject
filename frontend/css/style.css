@@ -305,9 +305,16 @@ table.minimalistBlack thead th {
 
 #officeImg{
 	display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+#emptyImg{
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
 }
 
 #tableType, #tableTypeSec{
