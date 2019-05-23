@@ -47,7 +47,7 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT reports.report_id, teachers_list.pib, to_list.pib \
+            db.query('SELECT reports.report_id, teachers_list.pib as from, to_list.pib as to \
               FROM  teachers_list, teachers_list as to_list, reports, method_materials WHERE \
               teachers_list.teacher_id = reports.report_from AND \
               to_list.teacher_id = reports.report_to AND\
