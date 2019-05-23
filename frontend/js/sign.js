@@ -198,6 +198,22 @@ function deleteViklTableInfo(){
 	});
 }
 
+function deletefileUploaderInfo(){
+	var session = this.id;
+	console.log(session);
+	do_post("file.delete", ["token", window.localStorage.getItem("token"), "file_id", session], (state, data)=> {
+		console.log(state);
+		console.log(data);
+		var stroka = JSON.parse(data);
+		if(stroka.error == false){
+			parseFileUploader(data);
+		}
+		if(stroka.error == true){
+			document.getElementById('emptyImg').style.display = 'block';
+		}
+	});
+}
+
 function closeUserSession(){
 	var session = document.getElementById(this.className).innerHTML;
 	console.log(session);
