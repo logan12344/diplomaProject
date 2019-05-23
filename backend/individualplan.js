@@ -50,7 +50,7 @@ function Get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT teachers_list.pib, subjects.name, \
+            db.query('SELECT individual_plan.individ_plan_id, teachers_list.pib, subjects.name, \
             individual_plan.num_lec_hours, individual_plan.num_prac_hours, \
             individual_plan.num_lab_hours, individual_plan.num_indep_hours, \
             individual_plan.num_indiv_hours FROM individual_plan, teachers_list, subjects WHERE \
@@ -114,7 +114,7 @@ function Delete(params, db, callback){
                     return;
                 }
 
-                callback.json({error: false, result: 'Delete successful'}).end();
+                Get(params,db,callback);
                 return;    
             });
         });

@@ -222,7 +222,7 @@ function Delete(params, db, callback){
                     return;
                 }
 
-                callback.json({error: false, result: 'Delete successful'}).end();
+                List(params, db, callback);
                 return;    
             });
         });
