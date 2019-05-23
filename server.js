@@ -17,6 +17,8 @@ const workplan = require('./backend/workplan');
 const lecturesplan = require('./backend/lecturesplan');
 const report = require('./backend/report');
 const account = require('./backend/account');
+const taskexecution = require('./backend/taskexecution');
+
 
 WebServer.use(express.static(__dirname + '/frontend'));
 WebServer.use(express.urlencoded());
@@ -78,6 +80,9 @@ function handle(req,res){
                 break;
             case 'report':
                 report.exec(method,req.query,pg_db,res);
+                break;
+            case 'taskexecution':
+                taskexecution.exec(method,req.query,pg_db,res);
                 break;
             default:
                 res.status(404).end();

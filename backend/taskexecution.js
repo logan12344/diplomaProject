@@ -47,11 +47,14 @@ function get(params,db,callback){
             //if (decoded.permit > 1 && params.tid)
                // decoded.tid = params.tid
 
-            db.query('SELECT reports.report_id, teachers_list.pib as from, to_list.pib as to \
-              FROM  teachers_list, teachers_list as to_list, reports, method_materials WHERE \
-              teachers_list.teacher_id = reports.report_from AND \
-              to_list.teacher_id = reports.report_to AND\
-              reports.file_id = method_materials.method_mat_id',
+            db.query('SELECT task_execution.task_id, task_execution.lec_plan_id, \
+            lectures_plan.report_date, subj_lectures.topic, students.pib,\
+            task_execution.stud_id, task_execution.file_id, method_materials.file_name, \
+            task_execution.send_date FROM task_execution, method_materials, lectures_plan, subj_lectures, students \
+              WHERE method_materials.method_mat_id = task_execution.file_id AND\
+              lectures_plan.lec_plan_id = task_execution.lec_plan_id AND \
+              lectures_plan.subj_lec_id = subj_lectures.subj_lec_id AND \
+              students.student_id = task_execution.stud_id',
             [], (error, results) =>{
                 if (error) {
                     console.error("SELECT: ", error);
@@ -97,7 +100,7 @@ function Delete(params, db, callback){
                 return;
             }
 
-            db.query('DELETE FROM reports WHERE reports.report_id = $1',
+            db.query('DELETE FROM task_execution WHERE task_execution.task_id = $1',
             [params.id], (error, results) =>{
                 if (error){
                     console.error(error);
@@ -146,9 +149,9 @@ function Add(params, db, callback){
                 return;
             }
 
-            db.query('INSERT INTO reports(report_from, report_to, file_id)\
-             VALUES ($1, $2, $3)',
-            [params.from, params.to, params.file_id],
+            db.query('INSERT INTO task_execution(lec_plan_id, stud_id, file_id, send_date)\
+             VALUES ($1, $2, $3, $4)',
+            [params.lec_id, params.stud_id, params.file_id, Date()],
                 (error, results) =>{
                 if (error){
                     console.error(error);
