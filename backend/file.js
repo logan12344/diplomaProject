@@ -276,6 +276,5 @@ function Edit(params, db, callback){
                 return;
             });
         });
-
     });
 }
