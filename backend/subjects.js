@@ -170,7 +170,7 @@ function Edit(params, db, callback){
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                get(params,db,callback);
                 return;
             });
         });
@@ -223,7 +223,7 @@ function Add(params, db, callback){
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                get(params,db,callback);
                 return;
             });
         });

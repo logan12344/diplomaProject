@@ -165,7 +165,7 @@ function Download(params, db, callback){
             [params.file_id, decoded.tid], (error, results) =>{
                 if (error){
                     console.error(error);
-                    callback.json({error: true,  result: 'Error list files'}).end();
+                    callback.json({error: true,  result: 'Error download files'}).end();
                     return;
                 }
 
@@ -263,7 +263,7 @@ function Edit(params, db, callback){
             [params.file_id, decoded.tid, params.name, params.desc, params.public], (error, results) =>{
                 if (error){
                     console.error(error);
-                    callback.json({error: true,  result: 'Error list files'}).end();
+                    callback.json({error: true,  result: 'Error edit files'}).end();
                     return;
                 }
 
@@ -272,7 +272,7 @@ function Edit(params, db, callback){
                     return;
                 }
 
-                callback.download('d:\\files\\'+results.rows[0].user_id+'\\'+results.rows[0].tmp_name,results.rows[0].file_name);    
+                List(params, db, callback);    
                 return;
             });
         });

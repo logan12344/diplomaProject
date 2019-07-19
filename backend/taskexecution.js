@@ -122,9 +122,7 @@ function Delete(params, db, callback){
 }
 
 function Add(params, db, callback){
-    if (!(params && params.token && params.work_exp && params.acad_status && params.position &&
-        params.dep_id && params.pib && params.degree && params.contact_info &&
-        params.discipline && params.biography && params.photo)){
+    if (!(params && params.token && params.lec_id && params.stud_id && params.file_id)){
         callback.json({error: true, result: 'Wrong params'}).end();
         return;
     }

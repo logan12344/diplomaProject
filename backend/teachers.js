@@ -167,7 +167,7 @@ function Edit(params, db, callback){
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                get(params,db,callback);
                 return;
             });
         });
@@ -210,16 +210,16 @@ function Add(params, db, callback){
                 (error, results) =>{
                 if (error){
                     console.error(error);
-                    callback.json({error: true,  result: 'Error list files'}).end();
+                    callback.json({error: true,  result: 'Error add teacher'}).end();
                     return;
                 }
 
                 if (results.rowCount == 0) {
-                    callback.json({error: true,  result: 'files not found'}).end();
+                    callback.json({error: true,  result: 'Error add teacher'}).end();
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                get(params,db,callback);
                 return;
             });
         });

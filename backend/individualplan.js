@@ -166,7 +166,7 @@ function Edit(params, db, callback){
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                Get(params,db,callback);
                 return;
             });
         });
@@ -174,7 +174,7 @@ function Edit(params, db, callback){
 }
 
 function Add(params, db, callback){
-    if (!(params && params.token && params.id && params.tid, params.sid, params.lec, 
+    if (!(params && params.token && params.tid, params.sid, params.lec, 
         params.prac, params.lab, params.indep, params.indiv)){
         callback.json({error: true, result: 'Wrong params'}).end();
         return;
@@ -216,7 +216,7 @@ function Add(params, db, callback){
                     return;
                 }
                 
-                callback.json({error: false, result: 'Updated successful'}).end();
+                Get(params,db,callback);
                 return;
             });
         });
